@@ -1,0 +1,4 @@
+django>=4.0
+wheel>=0.37
+django-dotenv>=1.4
+mysqlclient>=2.1
