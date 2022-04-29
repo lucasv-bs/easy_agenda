@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'employee.apps.EmployeeConfig',
     'appointment.apps.AppointmentConfig',
     'clinic.apps.ClinicConfig',
+    'consultation.apps.ConsultationConfig',
 ]
 
 MIDDLEWARE = [
