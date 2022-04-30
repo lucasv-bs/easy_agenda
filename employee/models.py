@@ -1,4 +1,5 @@
 from django.db import models
+from django.forms import BooleanField
 
 
 from users.models import User
@@ -19,9 +20,10 @@ class Employee(models.Model):
     city = models.CharField(max_length=150)
     neighborhood = models.CharField(max_length=150)
     tel1 = models.CharField(max_length=11)
-    tel2 = models.CharField(max_length=11, null=True)
-    specialty = models.ForeignKey(Specialty, null=True, on_delete=models.PROTECT)
-    creator = models.ForeignKey(User, null=True, on_delete=models.PROTECT, related_name='employee_creator_set')
-    updater = models.ForeignKey(User, null=True, on_delete=models.PROTECT, related_name='employee_updater_set')
+    tel2 = models.CharField(max_length=11, null=True)    
+    active = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    specialty = models.ForeignKey(Specialty, null=True, on_delete=models.PROTECT)
+    creator = models.ForeignKey(User, on_delete=models.PROTECT, related_name='employee_creator_set')
+    updater = models.ForeignKey(User, on_delete=models.PROTECT, related_name='employee_updater_set')

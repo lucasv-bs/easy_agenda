@@ -18,6 +18,7 @@ class Customer(models.Model):
     neighborhood = models.CharField(max_length=150)
     tel1 = models.CharField(max_length=11)
     tel2 = models.CharField(max_length=11, null=True)
+    active = models.BooleanField(default=True)
     creator = models.ForeignKey(User, null=True, on_delete=models.PROTECT, related_name='customer_creator_set')
     updater = models.ForeignKey(User, null=True, on_delete=models.PROTECT, related_name='customer_updater_set')
     created = models.DateTimeField(auto_now_add=True)
