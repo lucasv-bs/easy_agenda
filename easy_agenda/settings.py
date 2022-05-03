@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'clinic.apps.ClinicConfig',
     'consultation.apps.ConsultationConfig',
     'specialty.apps.SpecialtyConfig',
+    'website.apps.WebsiteConfig',
 ]
 
 MIDDLEWARE = [
