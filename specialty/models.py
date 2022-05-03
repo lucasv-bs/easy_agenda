@@ -10,3 +10,7 @@ class Specialty(models.Model):
     updater = models.ForeignKey(User, on_delete=models.PROTECT, related_name='specialty_updater_set')
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+
+
+    def __str__(self):
+        return self.name
