@@ -27,5 +27,6 @@ class Employee(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     specialty = models.ForeignKey(Specialty, null=True, on_delete=models.PROTECT)
+    user = models.OneToOneField(User, on_delete=models.PROTECT, related_name='employee')
     creator = models.ForeignKey(User, on_delete=models.PROTECT, related_name='employee_creator_set')
     updater = models.ForeignKey(User, on_delete=models.PROTECT, related_name='employee_updater_set')
