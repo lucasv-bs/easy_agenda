@@ -13,16 +13,95 @@
 </head>
 
 <body>
-    
+
     <form action="" method="POST">
         {% csrf_token %}
-        {{form_user.as_p}}
-        <hr>
-        {{form_customer.as_p}}
-        <hr>
+
+        <fieldset>
+            <legend>Dados de usuário</legend>
+            <div>
+                <label for="{{form_user.username.id_for_label}}">{{form_user.username.label}}</label>
+                <input type="text" id="{{form_user.username.id_for_label}}" name="{{form_user.username.html_name}}" required>
+            </div>
+            <div>
+                <label for="{{form_user.email.id_for_label}}">{{form_user.email.label}}</label>
+                <input type="email" id="{{form_user.email.id_for_label}}" name="{{form_user.email.html_name}}" required>
+            </div>
+            <div>
+                <label for="{{form_user.password1.id_for_label}}">{{form_user.password1.label}}</label>
+                <input type="password" id="{{form_user.password1.id_for_label}}" name="{{form_user.password1.html_name}}" required>
+            </div>
+            <div>
+                <label for="{{form_user.password2.id_for_label}}">{{form_user.password2.label}}</label>
+                <input type="password" id="{{form_user.password2.id_for_label}}" name="{{form_user.password2.html_name}}" required>
+            </div>
+        </fieldset>
+        {{form_user.errors}}
+
+        <fieldset>
+            <legend>Dados pessoais</legend>
+            <div>
+                <label for="{{form_customer.name.id_for_label}}">{{form_customer.name.label}}</label>
+                <input type="text" id="{{form_customer.name.id_for_label}}" name="{{form_customer.name.html_name}}" required>
+            </div>
+            <div>
+                <label for="{{form_customer.cpf.id_for_label}}">{{form_customer.cpf.label}}</label>
+                <input type="text" id="{{form_customer.cpf.id_for_label}}" name="{{form_customer.cpf.html_name}}" required>
+            </div>
+            <div>
+                <label for="{{form_customer.birth_date.id_for_label}}">{{form_customer.birth_date.label}}</label>
+                <input type="date" id="{{form_customer.birth_date.id_for_label}}" name="{{form_customer.birth_date.html_name}}" required>
+            </div>
+            <div>
+                <label for="{{form_customer.gender.id_for_label}}">{{form_customer.gender.label}}</label>
+                {{form_customer.gender}}
+            </div>  
+        </fieldset>
+
+        <fieldset>
+            <legend>Dados de localização e contato</legend>
+            <div>
+                <label for="{{form_customer.postal_code.id_for_label}}">{{form_customer.postal_code.label}}</label>
+                <input type="text" id="{{form_customer.postal_code.id_for_label}}" name="{{form_customer.postal_code.html_name}}" required>
+            </div>
+            <div>
+                <label for="{{form_customer.address.id_for_label}}">{{form_customer.address.label}}</label>
+                <input type="text" id="{{form_customer.address.id_for_label}}" name="{{form_customer.address.html_name}}" required>
+            </div>
+            <div>
+                <label for="{{form_customer.address_number.id_for_label}}">{{form_customer.address_number.label}}</label>
+                <input type="text" id="{{form_customer.address_number.id_for_label}}" name="{{form_customer.address_number.html_name}}" required>
+            </div>
+            <div>
+                <label for="{{form_customer.complement.id_for_label}}">{{form_customer.complement.label}}</label>
+                <input type="text" id="{{form_customer.complement.id_for_label}}" name="{{form_customer.complement.html_name}}">
+            </div>
+            <div>
+                <label for="{{form_customer.state.id_for_label}}">{{form_customer.state.label}}</label>
+                {{form_customer.state}}
+            </div>
+            <div>
+                <label for="{{form_customer.city.id_for_label}}">{{form_customer.city.label}}</label>
+                <input type="text" id="{{form_customer.city.id_for_label}}" name="{{form_customer.city.html_name}}" required>
+            </div>
+            <div>
+                <label for="{{form_customer.neighborhood.id_for_label}}">{{form_customer.neighborhood.label}}</label>
+                <input type="text" id="{{form_customer.neighborhood.id_for_label}}" name="{{form_customer.neighborhood.html_name}}" required>
+            </div>
+            <div>
+                <label for="{{form_customer.tel1.id_for_label}}">{{form_customer.tel1.label}}</label>
+                <input type="text" id="{{form_customer.tel1.id_for_label}}" name="{{form_customer.tel1.html_name}}" required>
+            </div>
+            <div>
+                <label for="{{form_customer.tel2.id_for_label}}">{{form_customer.tel2.label}}</label>
+                <input type="text" id="{{form_customer.tel2.id_for_label}}" name="{{form_customer.tel2.html_name}}">
+            </div>
+        </fieldset>
+        {{form_customer.errors}}
+
         <button type="submit">Register user</button>
     </form>
-    
+
 
 
     <!-- Bootstrap -->
