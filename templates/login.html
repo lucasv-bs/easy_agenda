@@ -27,17 +27,6 @@
                 <div class="input-group mb-2">
                     <input type="password" name="password" placeholder="Password..." class="form-control">
                 </div>
-                <div class="input-group mb-2">
-                    <p>Eu sou um:</p>
-                    <div>
-                        <label for="id_usertype_customer">Cliente</label>
-                        <input type="radio" name="usertype" id="id_usertype_customer" value="customer">
-                    </div>
-                    <div>
-                        <label for="id_usertype_employee">Funcionário</label>
-                        <input type="radio" name="usertype" id="id_usertype_employee" value="employee">
-                    </div>
-                </div>
                 {% for message in messages %}
                     <p id="messages">{{message}}</p>
                 {% endfor %}

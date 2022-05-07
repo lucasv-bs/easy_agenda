@@ -14,14 +14,12 @@ def loginPage(request):
         user = authenticate(request, username=username, password=password)
         
         if user is not None:
-            if usertype is None:
-                messages.info(request, 'Enter your user type')
+            login(request, user)
+            
+            if user.is_staff:
+                return redirect('employee:employee_home')
             else:
-                login(request, user)
-                if usertype == 'customer':
-                    return redirect('customer:customer_home')
-                if usertype == 'employee':
-                    return redirect('employee')
+                return redirect('customer:customer_home')
         else:
             messages.info(request, 'Username or password is incorrect')
     
