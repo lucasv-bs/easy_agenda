@@ -1,8 +1,6 @@
 # django imports
 from django.shortcuts import render
 
-import customer
-
 # project imports
 from .forms import CustomerCreateForm, UserCustomerCreateForm
 
@@ -24,3 +22,8 @@ def registerPage(request):
 
     context = {'form_customer': form_customer, 'form_user': form_user}
     return render(request, 'register.html', context)
+
+
+def customerPage(request):
+    context = {}
+    return render(request, 'customer.html', context)
