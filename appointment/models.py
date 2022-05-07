@@ -10,7 +10,7 @@ class Appointment(models.Model):
     hour = models.TimeField()
     appointment_return = models.BooleanField(default=False)    
     canceled = models.BooleanField(default=False)
-    justification = models.TextField()
+    justification = models.TextField(blank=True, null=True)
     active = models.BooleanField(default=True)
     creator = models.ForeignKey(User, on_delete=models.PROTECT, related_name='appointment_creator_set')
     customer = models.ForeignKey(Customer, on_delete=models.PROTECT)
