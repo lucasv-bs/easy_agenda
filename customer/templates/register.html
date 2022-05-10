@@ -54,7 +54,11 @@
             </div>
             <div>
                 <label for="{{form_customer.gender.id_for_label}}">{{form_customer.gender.label}}</label>
-                {{form_customer.gender}}
+                <select id="{{form_customer.gender.id_for_label}}" name="{{form_customer.gender.html_name}}">
+                    {% for value, description in form_customer.fields.gender.choices %}
+                    <option value="{{value}}">{{description}}</option>
+                    {% endfor %}
+                </select>
             </div>  
         </fieldset>
 
@@ -78,7 +82,11 @@
             </div>
             <div>
                 <label for="{{form_customer.state.id_for_label}}">{{form_customer.state.label}}</label>
-                {{form_customer.state}}
+                <select id="{{form_customer.state.id_for_label}}" name="{{form_customer.state.html_name}}">
+                    {% for value, description in form_customer.fields.state.choices %}
+                    <option value="{{value}}">{{description}}</option>
+                    {% endfor %}
+                </select>
             </div>
             <div>
                 <label for="{{form_customer.city.id_for_label}}">{{form_customer.city.label}}</label>
