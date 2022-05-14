@@ -9,7 +9,6 @@ def loginPage(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-        usertype = request.POST.get('usertype')
 
         user = authenticate(request, username=username, password=password)
         
