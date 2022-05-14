@@ -1,9 +1,13 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static 'css/employee.css' %}">
+{% endblock %}
 
 {% block content %}
-<main>
-    <h1>Acesso do Funcionário</h1>
-    <hr>
-    <h2>Recursos do sistema</h2>
+<main class="content">
+    <h1 class="title">Seja Bem Vindo!</h1>
+    
 </main>
 {% endblock %}

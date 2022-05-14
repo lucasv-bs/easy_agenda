@@ -1,0 +1,26 @@
+.content {
+    display: flex;
+    min-height: 100%;
+    flex: 1 0;
+    flex-direction: column;
+    padding: 10px 20px;
+}
+
+.title {
+    text-align: center;
+    font-size: 30px;
+    font-weight: normal;
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+table, th, td {
+    padding: 0;
+    border-spacing: 0;
+}
+
+.table-head > tr > th, .table-body > tr > td{
+    text-align: left;
+    border: 1px solid black;
+    padding: 5px;
+}
