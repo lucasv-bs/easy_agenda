@@ -1,124 +1,188 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-
-    <title>Register</title>
+    
+    <!-- CSS project -->
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+    
+    <!-- Google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    
+    <title>Easy Agenda - Cadastro do cliente</title>
 </head>
-
 <body>
+    <div class="conteiner">
+        <div class="header">
+            <h2>Criar uma Conta</h2>
+        </div>
 
-    <form action="" method="POST">
-        {% csrf_token %}
+        <form id="form" class="form" action="" method="POST">
+            {% csrf_token %}
 
-        <fieldset>
-            <legend>Dados de usuário</legend>
-            <div>
+            <div class="form-control">
                 <label for="{{form_user.username.id_for_label}}">{{form_user.username.label}}</label>
-                <input type="text" id="{{form_user.username.id_for_label}}" name="{{form_user.username.html_name}}" required>
+                <input type="text" 
+                    id="{{form_user.username.id_for_label}}" name="{{form_user.username.html_name}}" 
+                    placeholder="Digite seu usuário" required>
+                <i class="fas fa-exclamation-circle"></i>
+                <i class="fas fa-check-circle"></i>
             </div>
-            <div>
+            <div class="form-control">
                 <label for="{{form_user.email.id_for_label}}">{{form_user.email.label}}</label>
-                <input type="email" id="{{form_user.email.id_for_label}}" name="{{form_user.email.html_name}}" required>
+                <input type="email" 
+                    id="{{form_user.email.id_for_label}}" name="{{form_user.email.html_name}}" 
+                    placeholder="Digite seu email" required>
+                <i class="fas fa-exclamation-circle"></i>
+                <i class="fas fa-check-circle"></i>
             </div>
-            <div>
+            <div class="form-control">
                 <label for="{{form_user.password1.id_for_label}}">{{form_user.password1.label}}</label>
-                <input type="password" id="{{form_user.password1.id_for_label}}" name="{{form_user.password1.html_name}}" required>
+                <input type="password" 
+                    id="{{form_user.password1.id_for_label}}" name="{{form_user.password1.html_name}}"
+                    placeholder="Digite sua senha" required>
+                <i class="fas fa-exclamation-circle"></i>
+                <i class="fas fa-check-circle"></i>
             </div>
-            <div>
+            <div class="form-control">
                 <label for="{{form_user.password2.id_for_label}}">{{form_user.password2.label}}</label>
-                <input type="password" id="{{form_user.password2.id_for_label}}" name="{{form_user.password2.html_name}}" required>
+                <input type="password" 
+                    id="{{form_user.password2.id_for_label}}" name="{{form_user.password2.html_name}}" 
+                    placeholder="Digite sua senha novamente" required>
+                <i class="fas fa-exclamation-circle"></i>
+                <i class="fas fa-check-circle"></i>
+                <small>Mensagem de erro</small>
             </div>
-        </fieldset>
-        {{form_user.errors}}
+            {{form_user.errors}}
 
-        <fieldset>
-            <legend>Dados pessoais</legend>
-            <div>
+            <div class="form-control">
                 <label for="{{form_customer.name.id_for_label}}">{{form_customer.name.label}}</label>
-                <input type="text" id="{{form_customer.name.id_for_label}}" name="{{form_customer.name.html_name}}" required>
+                <input type="text" 
+                    id="{{form_customer.name.id_for_label}}" name="{{form_customer.name.html_name}}"
+                    placeholder="Digite seu nome completo" required>
+                <i class="fas fa-exclamation-circle"></i>
+                <i class="fas fa-check-circle"></i>
             </div>
-            <div>
+            <div class="form-control">
                 <label for="{{form_customer.cpf.id_for_label}}">{{form_customer.cpf.label}}</label>
-                <input type="text" id="{{form_customer.cpf.id_for_label}}" name="{{form_customer.cpf.html_name}}" required>
+                <input 
+                    type="text" id="{{form_customer.cpf.id_for_label}}" name="{{form_customer.cpf.html_name}}"
+                    maxlength="11" pattern="\d{3}\.?\d{3}\.?\d{3}-?\d{2}" placeholder="Digite seu CPF" required>
+                
+                <i class="fas fa-exclamation-circle"></i>
+                <i class="fas fa-check-circle"></i>
             </div>
-            <div>
+            <div class="form-control ">
                 <label for="{{form_customer.birth_date.id_for_label}}">{{form_customer.birth_date.label}}</label>
                 <input type="date" id="{{form_customer.birth_date.id_for_label}}" name="{{form_customer.birth_date.html_name}}" required>
+                <i class="fas fa-exclamation-circle"></i>
+                <i class="fas fa-check-circle"></i>
             </div>
-            <div>
+            <div class="form-control">
                 <label for="{{form_customer.gender.id_for_label}}">{{form_customer.gender.label}}</label>
-                <select id="{{form_customer.gender.id_for_label}}" name="{{form_customer.gender.html_name}}">
+                <br>
+                <select id="{{form_customer.gender.id_for_label}}" name="{{form_customer.gender.html_name}}" required>
                     {% for value, description in form_customer.fields.gender.choices %}
                     <option value="{{value}}">{{description}}</option>
                     {% endfor %}
                 </select>
-            </div>  
-        </fieldset>
 
-        <fieldset>
-            <legend>Dados de localização e contato</legend>
-            <div>
+                <i class="fas fa-exclamation-circle"></i>
+                <i class="fas fa-check-circle"></i>
+            </div>
+            
+            <div class="form-control">
                 <label for="{{form_customer.postal_code.id_for_label}}">{{form_customer.postal_code.label}}</label>
-                <input type="text" id="{{form_customer.postal_code.id_for_label}}" name="{{form_customer.postal_code.html_name}}" required>
+                <input type="text" 
+                    id="{{form_customer.postal_code.id_for_label}}" name="{{form_customer.postal_code.html_name}}"
+                    maxlength="8" placeholder="Digite seu CEP" required>
+
+                <i class="fas fa-exclamation-circle"></i>
+                <i class="fas fa-check-circle"></i>
             </div>
-            <div>
+            <div class="form-control">
                 <label for="{{form_customer.address.id_for_label}}">{{form_customer.address.label}}</label>
-                <input type="text" id="{{form_customer.address.id_for_label}}" name="{{form_customer.address.html_name}}" required>
+                <input type="text" 
+                    id="{{form_customer.address.id_for_label}}" name="{{form_customer.address.html_name}}"
+                    placeholder="Digite o nome da sua rua" required>
+                <i class="fas fa-exclamation-circle"></i>
+                <i class="fas fa-check-circle"></i>
             </div>
-            <div>
+            <div class="form-control">
                 <label for="{{form_customer.address_number.id_for_label}}">{{form_customer.address_number.label}}</label>
-                <input type="text" id="{{form_customer.address_number.id_for_label}}" name="{{form_customer.address_number.html_name}}" required>
+                <input type="text" 
+                    id="{{form_customer.address_number.id_for_label}}" name="{{form_customer.address_number.html_name}}"
+                    placeholder="Digite o número da sua casa" required>
+
+                <i class="fas fa-exclamation-circle"></i>
+                <i class="fas fa-check-circle"></i>
             </div>
-            <div>
+            <div class="form-control">
                 <label for="{{form_customer.complement.id_for_label}}">{{form_customer.complement.label}}</label>
-                <input type="text" id="{{form_customer.complement.id_for_label}}" name="{{form_customer.complement.html_name}}">
+                <input type="text" 
+                    id="{{form_customer.complement.id_for_label}}" name="{{form_customer.complement.html_name}}"
+                    placeholder="Digite o complemento do seu endereço">
+                <i class="fas fa-exclamation-circle"></i>
+                <i class="fas fa-check-circle"></i>
             </div>
-            <div>
+            <div class="form-control">
                 <label for="{{form_customer.state.id_for_label}}">{{form_customer.state.label}}</label>
-                <select id="{{form_customer.state.id_for_label}}" name="{{form_customer.state.html_name}}">
+                <select id="{{form_customer.state.id_for_label}}" name="{{form_customer.state.html_name}}" required>
                     {% for value, description in form_customer.fields.state.choices %}
                     <option value="{{value}}">{{description}}</option>
                     {% endfor %}
                 </select>
             </div>
-            <div>
+            <div class="form-control">
                 <label for="{{form_customer.city.id_for_label}}">{{form_customer.city.label}}</label>
-                <input type="text" id="{{form_customer.city.id_for_label}}" name="{{form_customer.city.html_name}}" required>
+                <input type="text" 
+                    id="{{form_customer.city.id_for_label}}" name="{{form_customer.city.html_name}}"
+                    placeholder="Digite o nome da sua Cidade" required>
+
+                <i class="fas fa-exclamation-circle"></i>
+                <i class="fas fa-check-circle"></i>
             </div>
-            <div>
+            <div class="form-control">
                 <label for="{{form_customer.neighborhood.id_for_label}}">{{form_customer.neighborhood.label}}</label>
-                <input type="text" id="{{form_customer.neighborhood.id_for_label}}" name="{{form_customer.neighborhood.html_name}}" required>
+                <input type="text" 
+                    id="{{form_customer.neighborhood.id_for_label}}" name="{{form_customer.neighborhood.html_name}}"
+                    placeholder="Digite o nome do seu bairro" required>
+
+                <i class="fas fa-exclamation-circle"></i>
+                <i class="fas fa-check-circle"></i>
             </div>
-            <div>
+            <div class="form-control">
                 <label for="{{form_customer.tel1.id_for_label}}">{{form_customer.tel1.label}}</label>
-                <input type="text" id="{{form_customer.tel1.id_for_label}}" name="{{form_customer.tel1.html_name}}" required>
+                <input type="text" 
+                    id="{{form_customer.tel1.id_for_label}}" name="{{form_customer.tel1.html_name}}"
+                    placeholder="Informe seu telefone" required>
+
+                <i class="fas fa-exclamation-circle"></i>
+                <i class="fas fa-check-circle"></i>
             </div>
-            <div>
+            <div class="form-control">
                 <label for="{{form_customer.tel2.id_for_label}}">{{form_customer.tel2.label}}</label>
-                <input type="text" id="{{form_customer.tel2.id_for_label}}" name="{{form_customer.tel2.html_name}}">
+                <input type="text" 
+                    id="{{form_customer.tel2.id_for_label}}" name="{{form_customer.tel2.html_name}}"
+                    placeholder="Informe um segundo telefone">
+                
+                <i class="fas fa-exclamation-circle"></i>
+                <i class="fas fa-check-circle"></i>
             </div>
-        </fieldset>
-        {{form_customer.errors}}
+            {{form_customer.errors}}
 
-        <button type="submit">Register user</button>
-    </form>
+            <div class="form-control">
+                <button type="submit" id="btn-register">Cadastrar</button>
+            </div>
+        </form>
+    </div>
 
-
-
-    <!-- Bootstrap -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
-        integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
-        integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
-        crossorigin="anonymous"></script>
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/3a3dea1cf5.js" crossorigin="anonymous"></script>
 </body>
-
 </html>

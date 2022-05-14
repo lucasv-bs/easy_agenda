@@ -137,7 +137,8 @@ STATIC_URL = 'static/'
 # Static files directories
 STATICFILES_DIRS = [
     BASE_DIR / "static",
-    BASE_DIR / "appointment/static"
+    BASE_DIR / "appointment/static",
+    BASE_DIR / "customer/static"
 ]
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
