@@ -27,5 +27,5 @@ def loginPage(request):
 
 
 def logoutUser(request):
-    logout(request)
+    logout(request)    
     return redirect('website:login')
