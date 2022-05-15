@@ -68,6 +68,14 @@ body {
     padding-right: 10px;
 }
 
+a.btn-logout {
+    background-color: #e74c3c;
+    border-radius: 10px;
+    color: #fff;
+    font-weight: 600;
+    padding: 5px 10px;
+}
+
 #footer {
     background-color: rgba(238, 238, 238, 0.534);
     /* bordas inferiores */
