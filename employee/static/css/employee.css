@@ -7,20 +7,13 @@
 }
 
 .title {
-    text-align: center;
-    font-size: 30px;
+    font-size: 18pt;
     font-weight: normal;
     width: 100%;
     margin-bottom: 40px;
 }
 
-table, th, td {
-    padding: 0;
-    border-spacing: 0;
-}
-
-.table-head > tr > th, .table-body > tr > td{
-    text-align: left;
-    border: 1px solid black;
-    padding: 5px;
+.title .employee-logged {
+    font-weight: 600;
+    text-decoration: underline;    
 }

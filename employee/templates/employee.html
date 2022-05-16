@@ -3,11 +3,18 @@
 
 {% block stylesheet %}
 <link rel="stylesheet" href="{% static 'css/employee.css' %}">
+<link rel="stylesheet" href="{% static 'css/attendant_home.css' %}">
 {% endblock %}
 
 {% block content %}
 <main class="content">
-    <h1 class="title">Seja Bem Vindo!</h1>
+    {% if employee.gender == m %}
+    <h1 class="title">Olá, bem vindo <span class="employee-logged">{{request.user.username}}!</span></h1>
+    {% else %}
+    <h1 class="title">Olá, bem vinda <span class="employee-logged">{{request.user.username}}!</span></h1>
+    {% endif %}
     
+    {% block employee_content %}
+    {% endblock %}
 </main>
 {% endblock %}

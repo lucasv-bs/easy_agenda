@@ -8,7 +8,7 @@ from specialty.models import Specialty
 class Appointment(models.Model):
     date = models.DateField()
     hour = models.TimeField()
-    appointment_return = models.BooleanField(default=False)    
+    appointment_return = models.BooleanField(default=False)
     canceled = models.BooleanField(default=False)
     justification = models.TextField(blank=True, null=True)
     active = models.BooleanField(default=True)
@@ -19,3 +19,7 @@ class Appointment(models.Model):
     updater = models.ForeignKey(User, null=True, on_delete=models.PROTECT, related_name='appointment_updater_set')
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+
+
+    class Meta:
+        ordering = ("date", "hour", "specialty", "doctor", "customer",)
