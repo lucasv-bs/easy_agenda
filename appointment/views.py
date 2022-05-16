@@ -1,4 +1,5 @@
 # django imports
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseBadRequest, HttpResponseNotFound, JsonResponse
 from django.shortcuts import render
 import json
@@ -8,8 +9,11 @@ from .models import Appointment
 from customer.models import Customer
 from employee.models import Employee
 from specialty.models import Specialty
+from website.decorators import allowed_users
 
 
+@login_required(login_url='website:login')
+@allowed_users(allowed_roles=['admin', 'attendant', 'doctor'])
 def employeeAppointmentPage(request):
     customer_list = Customer.objects.all()
     specialty_list = Specialty.objects.all()

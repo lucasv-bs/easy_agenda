@@ -1,9 +1,11 @@
 # django imports
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 
 # project imports
 from .forms import CustomerCreateForm, UserCustomerCreateForm
+from website.decorators import allowed_users
 
 
 def registerPage(request):
@@ -29,6 +31,8 @@ def registerPage(request):
     return render(request, 'register.html', context)
 
 
+@login_required(login_url='website:login')
+@allowed_users(allowed_roles=['customer'])
 def customerPage(request):
     context = {}
     return render(request, 'customer.html', context)
