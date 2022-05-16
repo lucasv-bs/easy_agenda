@@ -13,7 +13,7 @@ from website.decorators import allowed_users
 
 
 @login_required(login_url='website:login')
-@allowed_users(allowed_roles=['admin', 'attendant', 'doctor'])
+@allowed_users(allowed_roles=['supervisor', 'attendant', 'doctor'])
 def employeeAppointmentPage(request):
     customer_list = Customer.objects.all()
     specialty_list = Specialty.objects.all()
