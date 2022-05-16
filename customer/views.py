@@ -9,6 +9,9 @@ from website.decorators import allowed_users
 
 
 def registerPage(request):
+    if request.user.is_authenticated and not request.user.is_staff:
+        return redirect('customer:customer_home')
+
     form_customer = CustomerCreateForm()
     form_user = UserCustomerCreateForm()
 
