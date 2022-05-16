@@ -23,8 +23,16 @@ def registerPage(request):
             user = form_user.save()
             username = form_user.cleaned_data.get('username')
 
+            logged_user = None
+            if request.user.is_staff:
+                logged_user = request.user
+            else:
+                logged_user = user
+
             customer = form_customer.save(commit=False)
             customer.user = user
+            customer.creator = logged_user
+            customer.updater = logged_user
             customer.save()
             
             messages.success(request, 'Usuário ' + username + ' registrado com sucesso.')
