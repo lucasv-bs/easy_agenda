@@ -9,5 +9,6 @@ class ClinicAdmin(admin.ModelAdmin):
     list_display = [
         'clinic_oppening',
         'clinic_closing',
-        'duration_consultation'
+        'consultation_duration',
+        'days_number_to_search'
     ]
