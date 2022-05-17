@@ -26,8 +26,8 @@
         {% for appointment in appointments %}
         <tr class="table-line">
             <td class="table-column" hidden>{{appointment.id}}</td>
-            <td class="table-column">{{appointment.date}}</td>
-            <td class="table-column">{{appointment.hour}}</td>
+            <td class="table-column">{{appointment.appointment_date}}</td>
+            <td class="table-column">{{appointment.appointment_time}}</td>
             <td class="table-column">{{appointment.customer}}</td>
             <td class="table-column">{{appointment.specialty}}</td>
             <td class="table-column">{{appointment.doctor}}</td>

@@ -6,8 +6,8 @@ from employee.models import Employee
 from specialty.models import Specialty
 
 class Appointment(models.Model):
-    date = models.DateField()
-    hour = models.TimeField()
+    appointment_date = models.DateField()
+    appointment_time = models.TimeField()
     appointment_return = models.BooleanField(default=False)
     canceled = models.BooleanField(default=False)
     justification = models.TextField(blank=True, null=True)
@@ -22,4 +22,4 @@ class Appointment(models.Model):
 
 
     class Meta:
-        ordering = ("date", "hour", "specialty", "doctor", "customer",)
+        ordering = ("appointment_date", "appointment_time", "specialty", "doctor", "customer",)

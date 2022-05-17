@@ -54,28 +54,28 @@ def getDoctorBySpecialty(request):
 def insertAppointment(request):
     data = (dict(json.load(request)))
 
-    date = data['date']
-    hour = data['hour']
+    appointment_date = data['appointment_date']
+    appointment_time = data['appointment_time']
     customer_id = data['customer_id']
     specialty_id = data['specialty_id']
     doctor_id = data['doctor_id']
 
-    if date is None or date == '':
+    if appointment_date is None or appointment_date == '':
         return HttpResponseBadRequest(JsonResponse({
             'status': 'error',
             'message': 'Invalid request! The appointment date was not informed.'
         }))
     
-    if hour is None or hour == '':
+    if appointment_time is None or appointment_time == '':
         return HttpResponseBadRequest(JsonResponse({
             'status': 'error',
-            'message': 'Invalid request! The appointment hour was not informed.'
+            'message': 'Invalid request! The appointment time was not informed.'
         }))
     
     if customer_id is None or customer_id == '':
         return HttpResponseBadRequest(JsonResponse({
             'status': 'error',
-            'message': 'Invalid request! The appointment customer_id was not informed.'
+            'message': 'Invalid request! The appointment customer was not informed.'
         }))
     
     if specialty_id is None or specialty_id == '':
@@ -96,8 +96,8 @@ def insertAppointment(request):
     logged_user = request.user
 
     appointment = Appointment()
-    appointment.date = date
-    appointment.hour = hour
+    appointment.appointment_date = appointment_date
+    appointment.appointment_time = appointment_time
     appointment.customer = customer
     appointment.specialty = specialty
     appointment.doctor = doctor

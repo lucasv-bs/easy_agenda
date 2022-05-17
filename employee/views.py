@@ -28,7 +28,7 @@ def employeePage(request):
 
 
 def attendantPage(request, employee):
-    appointment_list = Appointment.objects.filter(date=date.today(), canceled=False)
+    appointment_list = Appointment.objects.filter(appointment_date=date.today(), canceled=False)
     total_appointments = appointment_list.count()
 
     page = request.GET.get('page', 1)

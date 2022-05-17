@@ -66,8 +66,8 @@ function getDoctorBySpecialty(specialty) {
 }
 
 
-function insertAppointment(date, hour, customer, specialty, doctor) {
-    console.log(date, hour, customer, specialty, doctor);
+function insertAppointment(appointment_date, appointment_time, customer, specialty, doctor) {
+    console.log(appointment_date, appointment_time, customer, specialty, doctor);
     
     const url = '/appointment/employee_appointment/insert/'
     fetch(url, {
@@ -78,8 +78,8 @@ function insertAppointment(date, hour, customer, specialty, doctor) {
             "X-CSRFToken": getCookie("csrftoken"),
         },
         body: JSON.stringify({
-            'date': date,
-            'hour': hour,
+            'appointment_date': appointment_date,
+            'appointment_time': appointment_time,
             'customer_id': parseInt(customer),
             'specialty_id': parseInt(specialty),
             'doctor_id': parseInt(doctor)
@@ -104,8 +104,8 @@ btnRegisterAppointment.addEventListener("click", function() {
     const customer = document.querySelector("#id_customer").value;
     const specialty = document.querySelector("#id_specialty").value;
     const doctor = document.querySelector("#id_doctor").value;
-    const date = document.querySelector("#id_date").value;
-    const hour = document.querySelector("#id_hour").value;
+    const appointment_date = document.querySelector("#id_appointment_date").value;
+    const appointment_time = document.querySelector("#id_appointment_time").value;
 
-    insertAppointment(date, hour, customer, specialty, doctor);
+    insertAppointment(appointment_date, appointment_time, customer, specialty, doctor);
 },);

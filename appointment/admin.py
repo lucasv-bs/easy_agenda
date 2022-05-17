@@ -7,8 +7,8 @@ from .models import Appointment
 @admin.register(Appointment)
 class AppointmentAdmin(admin.ModelAdmin):
     list_display = [
-        'date', 
-        'hour',
+        'appointment_date', 
+        'appointment_time',
         'customer',
         'specialty',
         'doctor',
