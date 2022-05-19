@@ -1,13 +1,16 @@
 <div id="header" class="main_menu">
     {% if request.user.is_staff %}
     <a href="{% url 'employee:employee_home' %}" id="logo_main">Easy Agenda</a>
-    {% endif %}
-    {% if not request.user.is_staff %}
+    {% else %}
     <a href="{% url 'customer:customer_home' %}" id="logo_main">Easy Agenda</a>
     {% endif %}
     
     <div id="menu">
-        <a href="#">Agenda</a>
+        {% if request.user.is_staff %}
+        <a href="{% url 'appointment:employee_appointment' %}">Agendamento</a>
+        {% else %}
+        <a href="#">Agendamento</a>
+        {% endif %}
         <a href="#">Menu2</a>
         <a href="#">Menu3</a>
         <a href="#">Menu4</a>

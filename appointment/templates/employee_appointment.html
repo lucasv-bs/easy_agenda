@@ -16,11 +16,7 @@
 <main>
     <h1>Página do funcionário para agendamento</h1>
     <div class="my-container">
-        <div class="side-panel" >
-            <label for="id_appointment_date">Data da consulta</label>
-            <input type="date" name="appointment_date" id="id_appointment_date">
-        </div>
-        <div class="main-panel">
+        <div class="left-panel">
             <div>
                 <label for="id_customer">Cliente</label>
                 <select name="customer" id="id_customer">
@@ -40,18 +36,18 @@
                 </select>
             </div>
             <div>
-                <label for="id_doctor">Médico</label>
-                <select name="doctor" id="id_doctor">
-                </select>
+                <label for="id_appointment_date">Data da consulta</label>
+                <input type="date" name="appointment_date" id="id_appointment_date">
             </div>
             <div>
-                <label for="id_appointment_time">Horário da consulta</label>
-                <input type="time" name="appointment_time" id="id_appointment_time">
-            </div>
-            <div>
-                <button type="button" id="btn-register-appointment" class="btn btn-primary">Agendar</button>
-            </div>
+                <p style="display: inline-block;">Essa consulta é um retorno?: </p>
+                <label for="id_appointment_return_yes">Sim</label>
+                <input type="radio" name="appointment_return" id="id_appointment_return_yes" value="true">
+                <label for="id_appointment_return_not">Não</label>
+                <input type="radio" name="appointment_return" id="id_appointment_return_not" value="false">
+            </div>            
         </div>
+        <div class="right-panel"></div>
     </div>
 </main>
 {% endblock %}

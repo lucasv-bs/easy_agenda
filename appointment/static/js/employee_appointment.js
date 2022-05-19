@@ -1,5 +1,6 @@
-const specialty_list = document.querySelector('#id_specialty');
-const doctor_list = document.querySelector('#id_doctor');
+const appointmentDate = document.querySelector('#id_appointment_date');
+const specialtyList = document.querySelector('#id_specialty');
+const doctorList = document.querySelector('#id_doctor');
 const btnRegisterAppointment = document.querySelector('#btn-register-appointment');
 
 
@@ -20,17 +21,19 @@ function getCookie(name) {
 }
 
 
-function getDoctorBySpecialty(specialty) {
-    // Clean the doctor list
-    doctor_list.textContent = '';
+function getAppointmentsAvailable(specialty, appointmentDate) {
     
     // Check if one specialty was selected
     if (specialty == '' || isNaN(parseInt(specialty))) {
         return;
     }
+    // Check if one appointment date was selected
+    if (appointmentDate == '' || appointmentDate == undefined) {
+        return;
+    }
 
     // Sends a request to the django
-    url = '/appointment/doctor_by_specialty/'
+    const url = '/appointment/appointments_available/';
     fetch(url, {
         method: 'POST',
         credentials: 'same-origin',
@@ -38,7 +41,10 @@ function getDoctorBySpecialty(specialty) {
             'X-Requested-With': 'XMLHttpRequest',
             "X-CSRFToken": getCookie("csrftoken"),
         },
-        body: JSON.stringify({ 'specialty_id': `${parseInt(specialty)}` })
+        body: JSON.stringify({ 
+            'specialty_id': `${parseInt(specialty)}`,
+            'appointment_date': `${appointmentDate}`
+        })
     })
     .then((response) => {
         return response.json();
@@ -47,23 +53,80 @@ function getDoctorBySpecialty(specialty) {
         if (data['status'] == 'warning' || data['status'] == 'error') {
             return;
         }
+        const divAvailabilityInformation = document.querySelector('.right-panel');
+        divAvailabilityInformation.textContent = '';
 
-        // Insert a default option in the doctor list
-        let option = document.createElement('option');
-        option.value = "";
-        option.textContent = "-----Select an option-----";
-        doctor_list.append(option);
+        const specialtyId = data['specialty_id'];
+        const specialtyName = data['specialty_name'];
 
-        // Fill the list doctor with the django response
-        Object.keys(data).map(function(key) {
-            let option = document.createElement('option');
-            option.value = key;
-            option.textContent = data[key];
+        for (const doctor of data['doctors']) {
+            let doctorId = doctor['doctor_id'];
+            let doctorName = doctor['doctor_name'];
+            let doctorGender = doctor['doctor_gender'];
+            let doctorCrm = doctor['doctor_crm'];
+            let doctorState = doctor['doctor_state'];
+            let selectedDate = doctor['selected_date'];
 
-            doctor_list.append(option);
-        });
+            const divDoctorAvailable = document.createElement('div');
+            divDoctorAvailable.setAttribute('id', `doctor-id-${doctorId}`);
+            divDoctorAvailable.setAttribute('data-doctor-id', doctorId);
+
+            const pDoctorName = document.createElement('p');
+            pDoctorName.textContent = doctorGender == 'm' ? `Dr. ${doctorName}` : `Dra. ${doctorName}`;
+            pDoctorName.style.fontWeight = 700;
+
+            const pDoctorSpecialty = document.createElement('p');
+            pDoctorSpecialty.textContent = `${specialtyName} - CRM: ${doctorCrm}`;
+
+            const ulDoctorAvailableList = document.createElement('ul');
+
+            for (const time of doctor['available_times']) {
+                const liAvailableTime = document.createElement('li');
+                liAvailableTime.setAttribute('data-time-selected', 'false');
+                liAvailableTime.style.padding = '10px';
+                liAvailableTime.textContent = time;
+                
+                liAvailableTime.addEventListener('click', function() {
+                    // Deselect another item if it exists
+                    const selectedTime = this.parentElement.querySelector('[data-time-selected="true"]');
+                    if (selectedTime != null || selectedTime != undefined) {
+                        selectedTime.setAttribute('data-time-selected', 'false');
+                    }
+                    this.setAttribute('data-time-selected', 'true');
+                });
+                
+                ulDoctorAvailableList.insertAdjacentElement('beforeend', liAvailableTime);
+            }
+
+            const btnRegister = document.createElement('button');
+            btnRegister.setAttribute('type', 'button');
+            btnRegister.setAttribute('id', `btn-doctor-id-${doctorId}`);
+            btnRegister.textContent = 'Agendar';
+            btnRegister.addEventListener('click', function() {
+                const customer = document.querySelector("#id_customer").value;
+                const specialty = document.querySelector("#id_specialty").value;
+                const appointment_date = document.querySelector('#id_appointment_date').value 
+                    ? document.querySelector('#id_appointment_date').value 
+                    : formatDate(new Date());
+
+                const doctor = this.parentElement.dataset.doctorId;
+                const appointment_time = this.previousSibling.querySelector('[data-time-selected="true"]').textContent;
+                console.log('Appointment time: ', appointment_time);
+
+                insertAppointment(appointment_date, appointment_time, customer, specialty, doctor);
+            });
+
+            divDoctorAvailable.insertAdjacentElement('beforeend', pDoctorName);
+            divDoctorAvailable.insertAdjacentElement('beforeend', pDoctorSpecialty);
+            divDoctorAvailable.insertAdjacentElement('beforeend', ulDoctorAvailableList);
+            divDoctorAvailable.insertAdjacentElement('beforeend', btnRegister);
+
+            divAvailabilityInformation.insertAdjacentElement('beforeend', divDoctorAvailable);
+        }
+        
     });
 }
+
 
 
 function insertAppointment(appointment_date, appointment_time, customer, specialty, doctor) {
@@ -94,18 +157,27 @@ function insertAppointment(appointment_date, appointment_time, customer, special
 }
 
 
-specialty_list.addEventListener("change", function() {
-        getDoctorBySpecialty(this.value);
+function formatDate(date) {
+    const year = Intl.DateTimeFormat('pt-br', { year: 'numeric' }).format(date);
+    const month = Intl.DateTimeFormat('pt-br', { month: '2-digit' }).format(date);
+    const day = Intl.DateTimeFormat('pt-br', { day: '2-digit' }).format(date);
+
+    return `${year}-${month}-${day}`;
+}
+
+
+specialtyList.addEventListener("change", function() {
+        const selectedDate = appointmentDate.value ? appointmentDate.value : formatDate(new Date());
+        
+        getAppointmentsAvailable(this.value, selectedDate);
     }, false
 );
 
+appointmentDate.addEventListener("change", function() {
+    const selectedSpecialty = specialtyList.value;
 
-btnRegisterAppointment.addEventListener("click", function() {
-    const customer = document.querySelector("#id_customer").value;
-    const specialty = document.querySelector("#id_specialty").value;
-    const doctor = document.querySelector("#id_doctor").value;
-    const appointment_date = document.querySelector("#id_appointment_date").value;
-    const appointment_time = document.querySelector("#id_appointment_time").value;
-
-    insertAppointment(appointment_date, appointment_time, customer, specialty, doctor);
-},);
+    if (selectedSpecialty == '' || selectedSpecialty == undefined) {
+        return;
+    }
+    getAppointmentsAvailable(selectedSpecialty, this.value);
+});

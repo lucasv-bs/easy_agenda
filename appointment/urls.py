@@ -6,6 +6,6 @@ app_name = "appointment"
 
 urlpatterns = [
     path('employee_appointment/', views.employeeAppointmentPage, name="employee_appointment"),
-    path('doctor_by_specialty/', views.getDoctorBySpecialty, name="doctor_by_specialty"),
+    path('appointments_available/', views.getAppointmentsAvailable, name="appointments_available"),    
     path('employee_appointment/insert/', views.insertAppointment, name="employee_appointment_insert")
 ]
