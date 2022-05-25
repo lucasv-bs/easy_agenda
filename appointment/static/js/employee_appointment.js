@@ -1,6 +1,7 @@
 const appointmentDate = document.querySelector('#id_appointment_date');
 const specialtyList = document.querySelector('#id_specialty');
 const doctorList = document.querySelector('#id_doctor');
+const divAvailabilityInformation = document.querySelector('.right-panel');
 const btnRegisterAppointment = document.querySelector('#btn-register-appointment');
 
 
@@ -25,6 +26,7 @@ function getAppointmentsAvailable(specialty, appointmentDate) {
     
     // Check if one specialty was selected
     if (specialty == '' || isNaN(parseInt(specialty))) {
+        divAvailabilityInformation.textContent = '';
         return;
     }
     // Check if one appointment date was selected
@@ -53,8 +55,30 @@ function getAppointmentsAvailable(specialty, appointmentDate) {
         if (data['status'] == 'warning' || data['status'] == 'error') {
             return;
         }
-        const divAvailabilityInformation = document.querySelector('.right-panel');
         divAvailabilityInformation.textContent = '';
+
+        const pSelectedDayResults = document.createElement('p');
+        pSelectedDayResults.setAttribute('id', 'selected-day-results');
+
+        // get the selected date to fill in the day results message
+        let selectedDate = document.querySelector('#id_appointment_date').value;
+        if (selectedDate == "") {
+            selectedDate = formatDate(new Date(), true);
+        }
+        else {            
+            // replace '-' for '/' on the string date
+            let regexp = /-/gi;
+            selectedDate = selectedDate.replace(regexp, '/');            
+            selectedDate = formatDate(new Date(selectedDate), true);
+        }
+        if ( data['doctors'] == undefined || !Array.isArray(data['doctors']) ) {
+            pSelectedDayResults.textContent = `Não há disponibilidade para as opções selecionadas`;
+            divAvailabilityInformation.insertAdjacentElement('beforeend', pSelectedDayResults);
+            
+            return;
+        }
+        pSelectedDayResults.textContent = `Resultados para o dia ${selectedDate}`;
+        divAvailabilityInformation.insertAdjacentElement('beforeend', pSelectedDayResults);
 
         const specialtyId = data['specialty_id'];
         const specialtyName = data['specialty_name'];
@@ -65,25 +89,27 @@ function getAppointmentsAvailable(specialty, appointmentDate) {
             let doctorGender = doctor['doctor_gender'];
             let doctorCrm = doctor['doctor_crm'];
             let doctorState = doctor['doctor_state'];
-            let selectedDate = doctor['selected_date'];
 
             const divDoctorAvailable = document.createElement('div');
             divDoctorAvailable.setAttribute('id', `doctor-id-${doctorId}`);
+            divDoctorAvailable.setAttribute('class', 'doctor');
             divDoctorAvailable.setAttribute('data-doctor-id', doctorId);
 
             const pDoctorName = document.createElement('p');
             pDoctorName.textContent = doctorGender == 'm' ? `Dr. ${doctorName}` : `Dra. ${doctorName}`;
-            pDoctorName.style.fontWeight = 700;
+            pDoctorName.setAttribute('class', 'doctor-name');
 
             const pDoctorSpecialty = document.createElement('p');
             pDoctorSpecialty.textContent = `${specialtyName} - CRM: ${doctorCrm}`;
+            pDoctorSpecialty.setAttribute('class', 'doctor-specialty');
 
             const ulDoctorAvailableList = document.createElement('ul');
+            ulDoctorAvailableList.setAttribute('class', 'doctor-time-list');
 
             for (const time of doctor['available_times']) {
                 const liAvailableTime = document.createElement('li');
-                liAvailableTime.setAttribute('data-time-selected', 'false');
-                liAvailableTime.style.padding = '10px';
+                liAvailableTime.setAttribute('class', 'doctor-time-available');
+                liAvailableTime.setAttribute('data-time-selected', 'false');                
                 liAvailableTime.textContent = time;
                 
                 liAvailableTime.addEventListener('click', function() {
@@ -98,35 +124,34 @@ function getAppointmentsAvailable(specialty, appointmentDate) {
                 ulDoctorAvailableList.insertAdjacentElement('beforeend', liAvailableTime);
             }
 
-            const btnRegister = document.createElement('button');
-            btnRegister.setAttribute('type', 'button');
-            btnRegister.setAttribute('id', `btn-doctor-id-${doctorId}`);
-            btnRegister.textContent = 'Agendar';
-            btnRegister.addEventListener('click', function() {
-                const customer = document.querySelector("#id_customer").value;
-                const specialty = document.querySelector("#id_specialty").value;
-                const appointment_date = document.querySelector('#id_appointment_date').value 
-                    ? document.querySelector('#id_appointment_date').value 
-                    : formatDate(new Date());
+            // const btnRegister = document.createElement('button');
+            // btnRegister.setAttribute('type', 'button');
+            // btnRegister.setAttribute('id', `btn-doctor-id-${doctorId}`);
+            // btnRegister.textContent = 'Agendar';
+            // btnRegister.addEventListener('click', function() {
+            //     const customer = document.querySelector("#id_customer").value;
+            //     const specialty = document.querySelector("#id_specialty").value;
+            //     const appointment_date = document.querySelector('#id_appointment_date').value 
+            //         ? document.querySelector('#id_appointment_date').value 
+            //         : formatDate(new Date());
 
-                const doctor = this.parentElement.dataset.doctorId;
-                const appointment_time = this.previousSibling.querySelector('[data-time-selected="true"]').textContent;
-                console.log('Appointment time: ', appointment_time);
+            //     const doctor = this.parentElement.dataset.doctorId;
+            //     const appointment_time = this.previousSibling.querySelector('[data-time-selected="true"]').textContent;
+            //     console.log('Appointment time: ', appointment_time);
 
-                insertAppointment(appointment_date, appointment_time, customer, specialty, doctor);
-            });
+            //     insertAppointment(appointment_date, appointment_time, customer, specialty, doctor);
+            // });
 
             divDoctorAvailable.insertAdjacentElement('beforeend', pDoctorName);
             divDoctorAvailable.insertAdjacentElement('beforeend', pDoctorSpecialty);
             divDoctorAvailable.insertAdjacentElement('beforeend', ulDoctorAvailableList);
-            divDoctorAvailable.insertAdjacentElement('beforeend', btnRegister);
+            // divDoctorAvailable.insertAdjacentElement('beforeend', btnRegister);
 
             divAvailabilityInformation.insertAdjacentElement('beforeend', divDoctorAvailable);
         }
         
     });
 }
-
 
 
 function insertAppointment(appointment_date, appointment_time, customer, specialty, doctor) {
@@ -157,11 +182,14 @@ function insertAppointment(appointment_date, appointment_time, customer, special
 }
 
 
-function formatDate(date) {
+function formatDate(date, formatForView = false) {
     const year = Intl.DateTimeFormat('pt-br', { year: 'numeric' }).format(date);
     const month = Intl.DateTimeFormat('pt-br', { month: '2-digit' }).format(date);
     const day = Intl.DateTimeFormat('pt-br', { day: '2-digit' }).format(date);
 
+    if (formatForView) {
+        return `${day}/${month}/${year}`;
+    }
     return `${year}-${month}-${day}`;
 }
 

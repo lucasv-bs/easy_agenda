@@ -1,55 +1,56 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static 'css/employee_appointment.css' %}">
+{% endblock %}
+
 {% block content %}
-<style>
-    .my-container {
-        display: flex;
-    }
-    .side-panel {
-        flex: 0 0 300px
-    }
-    .main-panel {
-        flex: 0 0 auto;
-    }
-</style>
-<main>
-    <h1>Página do funcionário para agendamento</h1>
-    <div class="my-container">
-        <div class="left-panel">
-            <div>
-                <label for="id_customer">Cliente</label>
-                <select name="customer" id="id_customer">
-                    <option value="">-----Select an option-----</option>
-                    {% for customer in customer_list %}
-                    <option value="{{customer.id}}">{{customer.name}}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div>
-                <label for="id_specialty">Especialidade</label>
-                <select name="specialty" id="id_specialty">
-                    <option value="">-----Select an option-----</option>
-                    {% for specialty in specialty_list %}
-                    <option value="{{specialty.id}}">{{specialty.name}}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div>
-                <label for="id_appointment_date">Data da consulta</label>
-                <input type="date" name="appointment_date" id="id_appointment_date">
-            </div>
-            <div>
-                <p style="display: inline-block;">Essa consulta é um retorno?: </p>
-                <label for="id_appointment_return_yes">Sim</label>
-                <input type="radio" name="appointment_return" id="id_appointment_return_yes" value="true">
-                <label for="id_appointment_return_not">Não</label>
-                <input type="radio" name="appointment_return" id="id_appointment_return_not" value="false">
-            </div>            
+
+<h1 class="title">Agendamento</h1>
+<p class="page-message">Preencha o formulário para realizar seu agendamento</p>
+<div class="panel">
+    <div class="left-panel">        
+        <div class="form-control">
+            <label for="id_customer">Cliente</label>
+            <select name="customer" id="id_customer" required>
+                <option value="">-----Select an option-----</option>
+                {% for customer in customer_list %}
+                <option value="{{customer.id}}">{{customer.name}}</option>
+                {% endfor %}
+            </select>
+
+            <i class="fas fa-exclamation-circle"></i>
+            <i class="fas fa-check-circle"></i>
         </div>
-        <div class="right-panel"></div>
+        <div class="form-control">
+            <label for="id_specialty">Especialidade</label>
+            <select name="specialty" id="id_specialty" required>
+                <option value="">-----Select an option-----</option>
+                {% for specialty in specialty_list %}
+                <option value="{{specialty.id}}">{{specialty.name}}</option>
+                {% endfor %}
+            </select>
+
+            <i class="fas fa-exclamation-circle"></i>
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="form-control">
+            <label for="id_appointment_date">Data da consulta</label>
+            <input type="date" name="appointment_date" id="id_appointment_date" required>
+            <i class="fas fa-exclamation-circle"></i>
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="form-control">
+            Essa consulta é um retorno?: 
+            <label for="id_appointment_return_yes">Sim</label>
+            <input type="radio" name="appointment_return" id="id_appointment_return_yes" value="true">
+            <label for="id_appointment_return_not">Não</label>
+            <input type="radio" name="appointment_return" id="id_appointment_return_not" value="false">
+        </div>            
     </div>
-</main>
+    <div class="right-panel"></div>
+</div>
 {% endblock %}
 
 {% block scripts %}

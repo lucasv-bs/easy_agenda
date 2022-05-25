@@ -1,0 +1,146 @@
+.title {
+    font-size: 1.5rem;
+}
+
+.page-message {
+    font-size: 1.5rem;
+    margin: 15px 0;
+}
+
+.panel {
+    display: flex;
+}
+
+/* ********** LEFT PANEL START ********** */
+.left-panel {
+    flex: 0 0 50%;
+    padding: 10px;
+}
+
+.form-control{
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    position: relative;
+
+}
+.form-control label {
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+.form-control input:not([type='radio']){
+    border: 2px solid #f0f0f0;
+    display: block;
+    border-radius: 10px;
+    font-size: 14px;
+    width: 100%;
+    padding: 10px;
+}
+.form-control i {
+    position: absolute;
+    top: 45px;
+    right: 10px;
+    visibility: hidden;
+}
+.form-control small {
+    position: absolute;
+    bottom: 1;
+    left: 0;
+    visibility: hidden;
+}
+.form button {
+    background-color:  rgb(30, 148, 89);
+    border: 2px solid  rgb(30, 148, 89);
+    color: #fff;
+    font-size: 14px;
+    width: 100%;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+}
+.form-control select {
+    border: 2px solid #f0f0f0;
+    display: block;
+    border-radius: 10px;
+    font-size: 14px;
+    width: 100%;
+    padding: 10px;
+}
+
+/* Error and Success*/
+
+.form-control.success input {
+    border-color: #2ecc71;
+}
+
+.form-control.error input {
+    border-color: #e74c3c;
+}
+
+.form-control.success i.fa-check-circle{
+    color: #2ecc71;
+}
+
+.form-control.error i.fa-exclamation-circle{
+    color: #e74c3c;
+}
+.form-control.error small {
+    color: #e74c3c;
+}
+
+/* ********** LEFT PANEL END ********** */
+
+
+/* ********** RIGHT PANEL START ********** */
+.right-panel {
+    flex: 0 0 50%;
+    max-width: 50%;
+    padding: 10px;
+    overflow-y: scroll;
+}
+
+#selected-day-results {
+    text-align: center;
+}
+
+.doctor {
+    background-color: var(--color-full-white);
+    border-radius: 5px;
+    margin-top: 30px;
+    padding: 10px;
+}
+
+#selected-day-results, .doctor > .doctor-name {
+    color: var(--text-emphasis);
+    font-weight: 700;
+}
+
+.doctor-specialty, .doctor-time-list {
+    margin-top: 10px;
+}
+
+.doctor-time-list {
+    display: flex;
+    padding: 10px 0;
+    overflow-x: scroll;
+}
+
+.doctor-time-available {
+    background-color: var(--logo-lightest-part);
+    border-radius: 5px;
+    color: var(--color-full-white);
+    cursor: pointer;
+    padding: 5px 10px;
+}
+
+.doctor-time-available + .doctor-time-available {
+    margin-left: 20px;
+}
+
+.doctor-time-available[data-time-selected="true"] {
+    background-color: var(--color-blue);
+    transform: translateY(2px);
+    transition: all 0.3s;
+}
+
+/* ********** RIGHT PANEL END ********** */
