@@ -1,14 +1,6 @@
-.content {
-    display: flex;
-    min-height: 100%;
-    flex: 1 0;
-    flex-direction: column;
-    padding: 10px 20px;
-}
-
 .title {
     text-align: center;
-    font-size: 30px;
+    font-size: 1.5rem;
     font-weight: normal;
     width: 100%;
     margin-bottom: 40px;

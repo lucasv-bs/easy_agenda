@@ -32,37 +32,37 @@
             <td class="table-column">{{appointment.specialty}}</td>
             <td class="table-column">{{appointment.doctor}}</td>
             <td class="table-column">
-                <input type="checkbox" name="appointment_return" id="appointment_{{appointment.id}}" 
+                <input type="checkbox" name="appointment_return" id="appointment_{{appointment.id}}"
                     value="{{appointment.appointment_return}}" disabled>
             </td>
             <td class="table-column">
                 <button type="button">Cancelar</button>
             </td>
         </tr>
-        {% endfor %}        
+        {% endfor %}
     </tbody>
 </table>
-    {% if appointments.has_other_pages %}
-    <ul class="pagination">
-        {% if appointments.has_previous %}
-          <li><a href="?page={{ appointments.previous_page_number }}">&laquo;</a></li>
-        {% else %}
-          <li class="disabled"><a href="#">&laquo;</a></li>
-        {% endif %}
-        {% for i in appointments.paginator.page_range %}
-          {% if appointments.number == i %}
-            <li class="active"><a href="#">{{ i }}</a></li>
-          {% else %}
-            <li><a href="?page={{ i }}">{{ i }}</a></li>
-          {% endif %}
-        {% endfor %}
-        {% if appointments.has_next %}
-          <li><a href="?page={{ appointments.next_page_number }}">&raquo;</a></li>
-        {% else %}
-          <li class="disabled"><a href="#">&raquo;</a></li>
-        {% endif %}
-      </ul>
+{% if appointments.has_other_pages %}
+<ul class="pagination">
+    {% if appointments.has_previous %}
+    <li><a href="?page={{ appointments.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+    <li class="disabled"><a href="#">&laquo;</a></li>
     {% endif %}
+    {% for i in appointments.paginator.page_range %}
+    {% if appointments.number == i %}
+    <li class="active"><a href="#">{{ i }}</a></li>
+    {% else %}
+    <li><a href="?page={{ i }}">{{ i }}</a></li>
+    {% endif %}
+    {% endfor %}
+    {% if appointments.has_next %}
+    <li><a href="?page={{ appointments.next_page_number }}">&raquo;</a></li>
+    {% else %}
+    <li class="disabled"><a href="#">&raquo;</a></li>
+    {% endif %}
+</ul>
+{% endif %}
 {% endif %}
 
 {% endblock %}

@@ -7,14 +7,14 @@
 {% endblock %}
 
 {% block content %}
-<main class="content">
-    {% if employee.gender == m %}
-    <h1 class="title">Olá, bem vindo <span class="employee-logged">{{request.user.username}}!</span></h1>
-    {% else %}
-    <h1 class="title">Olá, bem vinda <span class="employee-logged">{{request.user.username}}!</span></h1>
-    {% endif %}
     
-    {% block employee_content %}
-    {% endblock %}
-</main>
+{% if employee.gender == m %}
+<h1 class="title">Olá, bem vindo <span class="employee-logged">{{request.user.username}}!</span></h1>
+{% else %}
+<h1 class="title">Olá, bem vinda <span class="employee-logged">{{request.user.username}}!</span></h1>
+{% endif %}
+
+{% block employee_content %}
+{% endblock %}
+
 {% endblock %}

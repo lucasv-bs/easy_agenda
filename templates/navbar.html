@@ -1,11 +1,16 @@
-<div id="header" class="main_menu">
+{% load static %}
+<nav class="navbar">
     {% if request.user.is_staff %}
-    <a href="{% url 'employee:employee_home' %}" id="logo_main">Easy Agenda</a>
+    <a href="{% url 'employee:employee_home' %}" class="logo">
+        <img src="{% static 'images/easy-agenda-logo.png' %}" alt="Easy Agenda logo">
+    </a>
     {% else %}
-    <a href="{% url 'customer:customer_home' %}" id="logo_main">Easy Agenda</a>
+    <a href="{% url 'customer:customer_home' %}" class="logo">
+        <img src="{% static 'images/easy-agenda-logo.png' %}" alt="Easy Agenda logo">
+    </a>
     {% endif %}
     
-    <div id="menu">
+    <div class="menu">
         {% if request.user.is_staff %}
         <a href="{% url 'appointment:employee_appointment' %}">Agendamento</a>
         {% else %}
@@ -17,4 +22,4 @@
     </div>
 
     <a class="btn-logout" href="{% url 'website:logout' %}">Logout</a>
-</div>
+</nav>
