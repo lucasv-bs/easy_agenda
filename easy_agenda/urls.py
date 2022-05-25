@@ -20,6 +20,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('website.urls', namespace="website")),
     path('appointment/', include('appointment.urls', namespace="appointment")),
+    path('consultation/', include('consultation.urls', namespace="consultation")),
     path('customer/', include('customer.urls', namespace="customer")),
     path('employee/', include('employee.urls', namespace="employee")),
 ]
