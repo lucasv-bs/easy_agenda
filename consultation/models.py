@@ -7,7 +7,7 @@ from users.models import User
 
 
 class Consultation(models.Model):
-    medical_chart = models.FileField()
+    medical_chart = models.FileField(blank=True, null=True)
     appointment = models.ForeignKey(Appointment, on_delete=models.PROTECT)
     doctor = models.ForeignKey(Employee, on_delete=models.PROTECT)
     updater = models.ForeignKey(User, on_delete=models.PROTECT)    
