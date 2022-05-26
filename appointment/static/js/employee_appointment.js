@@ -124,28 +124,30 @@ function getAppointmentsAvailable(specialty, appointmentDate) {
                 ulDoctorAvailableList.insertAdjacentElement('beforeend', liAvailableTime);
             }
 
-            // const btnRegister = document.createElement('button');
-            // btnRegister.setAttribute('type', 'button');
-            // btnRegister.setAttribute('id', `btn-doctor-id-${doctorId}`);
-            // btnRegister.textContent = 'Agendar';
-            // btnRegister.addEventListener('click', function() {
-            //     const customer = document.querySelector("#id_customer").value;
-            //     const specialty = document.querySelector("#id_specialty").value;
-            //     const appointment_date = document.querySelector('#id_appointment_date').value 
-            //         ? document.querySelector('#id_appointment_date').value 
-            //         : formatDate(new Date());
+            const btnRegister = document.createElement('button');
+            btnRegister.setAttribute('type', 'button');
+            btnRegister.setAttribute('id', `btn-doctor-id-${doctorId}`);
+            btnRegister.setAttribute('class', 'btn-register-appointment');
+            btnRegister.textContent = 'Agendar';
+            
+            btnRegister.addEventListener('click', function() {
+                const customer = document.querySelector("#id_customer").value;
+                const specialty = document.querySelector("#id_specialty").value;
+                const appointment_date = document.querySelector('#id_appointment_date').value 
+                    ? document.querySelector('#id_appointment_date').value 
+                    : formatDate(new Date());
 
-            //     const doctor = this.parentElement.dataset.doctorId;
-            //     const appointment_time = this.previousSibling.querySelector('[data-time-selected="true"]').textContent;
-            //     console.log('Appointment time: ', appointment_time);
+                const doctor = this.parentElement.dataset.doctorId;
+                const appointment_time = this.previousSibling.querySelector('[data-time-selected="true"]').textContent;
+                console.log('Appointment time: ', appointment_time);
 
-            //     insertAppointment(appointment_date, appointment_time, customer, specialty, doctor);
-            // });
+                insertAppointment(appointment_date, appointment_time, customer, specialty, doctor);
+            });
 
             divDoctorAvailable.insertAdjacentElement('beforeend', pDoctorName);
             divDoctorAvailable.insertAdjacentElement('beforeend', pDoctorSpecialty);
             divDoctorAvailable.insertAdjacentElement('beforeend', ulDoctorAvailableList);
-            // divDoctorAvailable.insertAdjacentElement('beforeend', btnRegister);
+            divDoctorAvailable.insertAdjacentElement('beforeend', btnRegister);
 
             divAvailabilityInformation.insertAdjacentElement('beforeend', divDoctorAvailable);
         }
