@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static 'css/cancel_appointment.css' %}">
+{% endblock %}
+
+{% block content %}
+<h1 class="title">Cancelar agendamento</h1>
+<div class="panel">
+    <form method="POST">
+        <div class="appointment-wrapper">
+            <p class="appointment-cancel-message" >Você realmente deseja cancelar o agendamento?</p>
+
+            <p class="appointment-doctor">Dr. Albiery Meneses</p>
+            <p class="appointment-specialty">Ortopedia - CRM: crm-112233</p>
+            <p class="appointment-date">
+                Data da consulta: <time datetime="2022-05-20">20/05/2022</time>
+            </p>
+            <p class="appointment-time">
+                Horário da consulta: <time>08:00</time>
+            </p>
+        </div>
+        <div class="appointment-cancel-decision">
+            <a class="btn-return" href="{% url 'customer:customer_home' %}">Voltar</a>
+            <button type="submit" class="btn-cancel-appointment">Sim, quero cancelar</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

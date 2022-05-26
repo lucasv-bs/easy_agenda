@@ -219,3 +219,8 @@ def insertAppointment(request):
         'status': 'success',
         'message': 'Appointment successfully registered'
     })
+
+
+@login_required(login_url='website:login')
+def cancelAppointment(request, pk):
+    return render(request, 'cancel_appointment.html')
