@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static 'css/customer_appointment.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<h1 class="title">Agendamento</h1>
+<p class="page-message">Preencha o formulário para realizar seu agendamento</p>
+<div class="panel">
+    <div class="left-panel">        
+        <div class="form-control">
+            <label class="highlighted-label" for="id_specialty">Especialidade</label>
+            <select name="specialty" id="id_specialty" required>
+                <option value="">-----Select an option-----</option>
+                {% for specialty in specialty_list %}
+                <option value="{{specialty.id}}">{{specialty.name}}</option>
+                {% endfor %}
+            </select>
+
+            <i class="fas fa-exclamation-circle"></i>
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="form-control">
+            <label class="highlighted-label" for="id_appointment_date">Data da consulta</label>
+            <input type="date" name="appointment_date" id="id_appointment_date" required>
+            <i class="fas fa-exclamation-circle"></i>
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="form-control">
+            <span class="highlighted-label">Essa consulta é um retorno?: </span>
+            <label for="id_appointment_return_yes">Sim</label>
+            <input type="radio" name="appointment_return" id="id_appointment_return_yes" value="true">
+            <label for="id_appointment_return_not">Não</label>
+            <input type="radio" name="appointment_return" id="id_appointment_return_not" value="false">
+        </div>            
+    </div>
+    <div class="right-panel"></div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/customer_appointment.js' %}"></script>
+{% endblock %}
