@@ -5,6 +5,7 @@ from django.shortcuts import redirect, render
 
 # project imports
 from .forms import CustomerCreateForm, UserCustomerCreateForm
+from .models import Customer
 from website.decorators import allowed_users
 
 
@@ -45,5 +46,12 @@ def registerPage(request):
 @login_required(login_url='website:login')
 @allowed_users(allowed_roles=['customer'])
 def customerPage(request):
-    context = {}
+    customer = Customer.objects.get(user=request.user)
+
+    print('Customer:', customer)
+    print('Gender:', customer.gender)
+
+    context = {
+        'customer': customer
+    }
     return render(request, 'customer.html', context)

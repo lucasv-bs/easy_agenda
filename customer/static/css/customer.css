@@ -1,18 +1,87 @@
 .title {
-    text-align: center;
     font-size: 1.5rem;
     font-weight: normal;
+    /* margin-top: 3rem; */
+    text-align: center;
     width: 100%;
-    margin-bottom: 40px;
 }
 
-table, th, td {
-    padding: 0;
-    border-spacing: 0;
+.title .customer-logged {
+    color: var(--text-emphasis);
+    font-weight: 600;
+    text-decoration: underline;    
 }
 
-.table-head > tr > th, .table-body > tr > td{
-    text-align: left;
-    border: 1px solid black;
-    padding: 5px;
+.panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.no-appointments-message {
+    display: none;
+    font-size: 2rem;
+    margin-top: 6rem; /* (font-size * 3) */
+}
+
+.btn-register-appointment {
+    background-color: var(--color-darkblue);
+    border-radius: 5px;
+    color: var(--color-full-white);
+    display: none;
+    margin-top: 3rem;
+    padding: 10px 15px;
+}
+
+.appointment-message {
+    font-size: 2rem;
+    margin-top: 4rem;
+}
+
+.appointment-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin-top: 4rem;
+    padding: 0 50px;
+    width: 100%;
+}
+
+.appointment-wrapper {
+    background-color: var(--color-full-white);
+    border-radius: 5px;
+    box-shadow: 2px 2px 4px var(--shadow-semi-transparent), -2px -2px 4px var(--shadow-semi-transparent);
+    margin-bottom: 30px;
+    padding: 15px;
+}
+
+.appointment-doctor {
+    color: var(--text-emphasis);
+    font-weight: 700;
+}
+
+.appointment-specialty,
+.appointment-date,
+.appointment-time,
+.btn-cancel-appointment {
+    margin-top: 10px;
+}
+
+.appointment-date > time,
+.appointment-time > time {
+    font-weight: 700;
+}
+
+.btn-cancel-appointment {
+    background-color: var(--color-red);
+    border-radius: 5px;
+    color: var(--color-full-white);
+    cursor: pointer;
+    display: block;
+    flex: 0 0;
+    font-weight: 600;
+    margin-top: 10px;
+    max-width: min-content;
+    padding: 5px 10px;
 }
