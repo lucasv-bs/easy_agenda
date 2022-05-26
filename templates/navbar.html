@@ -16,6 +16,9 @@
         {% else %}
         <a href="{% url 'appointment:customer_appointment' %}">Agendamento</a>
         {% endif %}
+        {% if request.user.is_staff and user_group != 'doctor' %}
+        <a href="{% url 'customer:customer_register' %}">Cadastrar</a>
+        {% endif %}
         <a href="#">Especialidades</a>
         <a href="#">Informações</a>
         <a href="#">Sobre</a>

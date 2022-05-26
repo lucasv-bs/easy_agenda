@@ -20,14 +20,14 @@ def employeePage(request):
     employee = Employee.objects.get(user=request.user)
     
     if user_group == 'attendant':
-        return attendantPage(request, employee)
+        return attendantPage(request, employee, user_group)
     if user_group == 'doctor':
-        return doctorPage(request, employee)
+        return doctorPage(request, employee, user_group)
     if user_group == 'supervisor':
-        return supervisorPage(request, employee)
+        return supervisorPage(request, employee, user_group)
 
 
-def attendantPage(request, employee):
+def attendantPage(request, employee, user_group):
     appointment_list = Appointment.objects.filter(appointment_date=date.today(), canceled=False)
     total_appointments = appointment_list.count()
 
@@ -43,16 +43,23 @@ def attendantPage(request, employee):
     context = {
         'appointments': appointments,
         'total_appointments': total_appointments,
-        'employee': employee
+        'employee': employee,
+        'user_group': user_group
     }
     return render(request, 'attendant_home.html', context)
 
 
-def doctorPage(request, employee):
-    context = {}
+def doctorPage(request, employee, user_group):
+    context = {
+        'employee': employee,
+        'user_group': user_group
+    }
     return render(request, 'employee.html', context)
 
 
-def supervisorPage(request, employee):
-    context = {}
+def supervisorPage(request, employee, user_group):
+    context = {
+        'employee': employee,
+        'user_group': user_group
+    }
     return render(request, 'employee.html', context)
