@@ -4,12 +4,22 @@
 <h1>Página da consulta</h1>
 <div>
     <p>Data e hora do agendamento: {{appointment.appointment_date}} - {{appointment.appointment_time}}</p>
+    <p>
+        Status da consulta: <select name="" id="">
+            <option value="">Pendente</option>
+            <option value="">Em andamento</option>
+            <option value="">Finalizado</option>
+        </select>
+    </p>
     <p>Paciente: {{appointment.customer}}</p>
     <p>Data de nascimento do paciente: {{appointment.customer.birth_date}}</p>
     <p>Médico: {{appointment.doctor}}</p>
     <p>Especialidade: {{appointment.specialty}}</p>
     <p>
         Carregar prontuário: <input type="file" name="" id="">
+    </p>
+    <p>
+        <button>Salvar</button>
     </p>
 </div>
 {% endblock %}

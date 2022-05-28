@@ -14,35 +14,32 @@
 {% endif %}
 
 <div class="panel">
-    <!-- <p class="no-appointments-message">Você ainda não possui agendamentos</p>
-    <button class="btn-register-appointment">Agendar agora</button> -->
+    {% if total_appointments == 0 %}
+    <p class="no-appointments-message">Você ainda não possui agendamentos</p>
+    <button class="btn-register-appointment">Agendar agora</button>
     
+    {% else %}
     <p class="appointment-message">Acompanhe seus agendamentos abaixo:</p>
     <div class="appointment-list">
+        {% for appointment in appointment_list %}
         <div class="appointment-wrapper">
-            <p class="appointment-doctor">Dr. Albiery Meneses</p>
-            <p class="appointment-specialty">Ortopedia - CRM: crm-112233</p>
+            <p class="appointment-doctor">{{ appointment.doctor }}</p>
+            <p class="appointment-specialty">{{ appointment.specialty }} - CRM: {{ appointment.doctor.crm }}</p>
             <p class="appointment-date">
-                Data da consulta: <time datetime="2022-05-20">20/05/2022</time>
+                Data da consulta: <time datetime="{{appointment.appointment_date}}">{{appointment.appointment_date}}</time>
             </p>
             <p class="appointment-time">
-                Horário da consulta: <time>08:00</time>
+                Horário da consulta: <time>{{appointment.appointment_time}}</time>
             </p>
-            <button class="btn-cancel-appointment">Cancelar</button>
+            <button class="btn-cancel-appointment" data-appointment-id="{{appointment.id}}">Cancelar</button>
         </div>
-        <div class="appointment-wrapper">
-            <p class="appointment-doctor">Dr. Albiery Meneses</p>
-            <p class="appointment-specialty">Ortopedia - CRM: crm-112233</p>
-            <p class="appointment-date">
-                Data da consulta: <time datetime="2022-06-05">05/06/2022</time>
-            </p>
-            <p class="appointment-time">
-                Horário da consulta: <time>10:00</time>
-            </p>
-            <button class="btn-cancel-appointment">Cancelar</button>
-        </div>
+        {% endfor %}
     </div>
-
+    {% endif %}
 </div>
 
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/customer_page.js' %}"></script>
 {% endblock %}

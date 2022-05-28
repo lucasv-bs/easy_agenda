@@ -1,3 +1,6 @@
+# python imports
+from datetime import date, datetime
+
 # django imports
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -6,6 +9,7 @@ from django.shortcuts import redirect, render
 # project imports
 from .forms import CustomerCreateForm, UserCustomerCreateForm
 from .models import Customer
+from appointment.models import Appointment
 from website.decorators import allowed_users
 
 
@@ -47,11 +51,17 @@ def registerPage(request):
 @allowed_users(allowed_roles=['customer'])
 def customerPage(request):
     customer = Customer.objects.get(user=request.user)
-
-    print('Customer:', customer)
-    print('Gender:', customer.gender)
+    appointment_list = Appointment.objects.filter(
+        customer=customer,
+        appointment_date__gte=datetime.now().date(),
+        status__in=['age', 'agu', 'ret'],
+        canceled=False
+    )
+    total_appointments = appointment_list.count()
 
     context = {
-        'customer': customer
+        'customer': customer,
+        'appointment_list': appointment_list,
+        'total_appointments': total_appointments
     }
     return render(request, 'customer.html', context)

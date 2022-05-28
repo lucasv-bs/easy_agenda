@@ -6,12 +6,23 @@ from employee.models import Employee
 from specialty.models import Specialty
 
 class Appointment(models.Model):
+
+    APPOINTMENT_STATUS = (
+        ('nac', 'Não compareceu'),
+        ('age', 'Agendado'),
+        ('agu', 'Aguardando'),
+        ('can', 'Cancelado'),
+        ('ret', 'Retorno'),
+        ('fin', 'Finalizado'),
+    )
+
     appointment_date = models.DateField()
     appointment_time = models.TimeField()
     appointment_return = models.BooleanField(default=False)
     canceled = models.BooleanField(default=False)
     justification = models.TextField(blank=True, null=True)
     active = models.BooleanField(default=True)
+    status = models.CharField(max_length=100, default='age', choices=APPOINTMENT_STATUS)
     creator = models.ForeignKey(User, on_delete=models.PROTECT, related_name='appointment_creator_set')
     customer = models.ForeignKey(Customer, on_delete=models.PROTECT)
     doctor = models.ForeignKey(Employee, on_delete=models.PROTECT)

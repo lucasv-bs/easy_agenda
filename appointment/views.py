@@ -233,5 +233,71 @@ def insertAppointment(request):
 
 
 @login_required(login_url='website:login')
-def cancelAppointment(request, pk):
-    return render(request, 'cancel_appointment.html')
+def cancelAppointment(request):
+    data = (dict(json.load(request)))
+    if data['id'] is None or data['id'] == '':
+        return {
+            'status': 'error',
+            'message': 'Invalid request! The appointment id was not informed.'
+        }
+    id = data['id']
+    appointment = Appointment.objects.get(id=id)
+    appointment.canceled = True
+    appointment.save()
+    return JsonResponse({
+        'status': 'success',
+        'message': 'Appointment Canceled'
+    })
+
+
+def getListByCanceled(request, data):
+    customer = Customer.objects.get(user=request.user)
+    appointment_list = Appointment.objects.filter(canceled = False, customer=customer)
+    r = []
+    for x in appointment_list:
+        r += {
+            "id" : x.id,
+            "date" : x.date,
+            "hour" : x.hour,
+            "customer" : customer.__str__(),
+            "doctor" : x.doctor.__str__(),
+            "specialty" : x.specialty.__str__(),
+            "status" : x.status,
+            "canceled" : x.canceled,
+        },
+    return r
+
+
+def getListByDate(request, data):
+    if data['day'] is None or data['day'] == '':
+        return {
+            'status': 'error',
+            'message': 'Invalid request! The appointment date was not informed.'
+        }
+    customer = Customer.objects.get(user=request.user)
+    appointment_list = Appointment.objects.filter(date=data['day'], customer=customer)
+    r = []
+    for x in appointment_list:
+        r += {
+            "id" : x.id,
+            "date" : x.date,
+            "hour" : x.hour,
+            "customer" : customer.__str__(),
+            "doctor" : x.doctor.__str__(),
+            "specialty" : x.specialty.__str__(),
+            "status" : x.status,
+            "canceled" : x.canceled,
+        },
+    
+    return r
+    
+
+def filter(request):
+    data = dict(json.load(request))
+    if (data['filter'] == '1'):
+        return JsonResponse(getListByDate(request, data), safe=False)
+    elif (data['filter'] == '2'):
+        return JsonResponse(getListByCanceled(request, data), safe=False)
+    else:
+        return JsonResponse({'status' : 'error',
+            'message' : 'Invalid request! Chose one of the filters.'}, safe=False)
