@@ -1,0 +1,33 @@
+.content {
+    padding: 0;
+}
+
+.panel {
+    padding: 10px 20px;
+}
+
+.specialty-banner > img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+.specialty-list {
+    max-width: 80%;
+    margin: 0 auto;
+}
+
+.specialty-wrapper {
+    padding: 20px 10px;
+}
+
+.specialty-title {
+    color: var(--text-emphasis);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.specialty-description {
+    line-height: 1.5rem;
+}

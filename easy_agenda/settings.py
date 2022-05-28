@@ -140,7 +140,8 @@ STATICFILES_DIRS = [
     BASE_DIR / "appointment/static",
     BASE_DIR / "consultation/static",
     BASE_DIR / "customer/static",
-    BASE_DIR / "employee/static"
+    BASE_DIR / "employee/static",
+    BASE_DIR / "specialty/static",
 ]
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
