@@ -32,3 +32,7 @@ def loginPage(request):
 def logoutUser(request):
     logout(request)    
     return redirect('website:login')
+
+
+def information(request):
+    return render(request, 'information.html')

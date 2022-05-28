@@ -1,0 +1,38 @@
+.content {
+    padding: 0;
+}
+
+.panel {
+    padding: 10px 20px;
+}
+
+.information-banner > img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+.information-list {
+    max-width: 80%;
+    margin: 0 auto;
+}
+
+.information-wrapper {
+    padding: 20px 10px;
+}
+
+.information-title {
+    color: var(--text-emphasis);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.information-description {
+    list-style: disc;
+    padding-left: 20px;
+}
+
+.information-description > li {
+    line-height: 1.5rem;
+}
