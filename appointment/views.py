@@ -1,5 +1,6 @@
 # python imports
 import json
+from numpy import True_
 import pandas
 from datetime import date, datetime, timedelta
 from time import strftime, time
@@ -164,6 +165,19 @@ def getDoctorAvailability(doctor, appointment_date, clinic_start_time, clinic_en
 
 
 #
+# check for duplicate appointments
+#
+def checkDuplicateAppointments(appointment_date, customer, specialty):
+    appointment = Appointment.objects.filter(
+        appointment_date=appointment_date,
+        customer=customer,
+        specialty=specialty
+    )
+
+    return appointment.count() > 0
+
+
+#
 # register an appointment
 #
 @login_required(login_url='website:login')
@@ -226,6 +240,12 @@ def insertAppointment(request):
     specialty = Specialty.objects.get(id=specialty_id)
     doctor = Employee.objects.get(id=doctor_id)
     logged_user = request.user
+
+    if checkDuplicateAppointments(appointment_date, customer, specialty):
+        return HttpResponseBadRequest(JsonResponse({
+            'status': 'error',
+            'message': 'Invalid request! Duplicate records.'
+        }))
 
     appointment = Appointment()
     appointment.appointment_date = appointment_date
