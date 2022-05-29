@@ -35,7 +35,11 @@ function cancelAppointment(id){
         return response.json();
     })
     .then((data) => {
-        console.log('FUNCIONOU');
+        console.log("sjflaksd")
+        let btn = document.getElementById(id)
+        btn.disabled = true
+        btn.innerHTML = "Cancelado"
+        btn.style.backgroundColor = "#b3cbff" 
     });
 }
 
