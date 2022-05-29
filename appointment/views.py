@@ -129,13 +129,11 @@ def getDoctorAvailability(doctor, appointment_date, clinic_start_time, clinic_en
 
     # get doctor's appointments
     doctor_appointments = Appointment.objects.filter(
-        doctor = doctor,
+        doctor=doctor,
         appointment_date=appointment_date,
+        status__in=['age', 'agu', 'ret'],
         canceled=False
     )
-
-    # print(appointment_date == str(date.today()))
-    # print(datetime.now().time().strftime("%H:%M"))
 
     # get a list of times
     time_list_before_luch = pandas.date_range(
@@ -176,8 +174,9 @@ def insertAppointment(request):
     customer_id = data['customer_id']
     specialty_id = data['specialty_id']
     doctor_id = data['doctor_id']
+    appointment_return = data['appointment_return']
 
-    print(appointment_date, appointment_time, customer_id, specialty_id, doctor_id)
+    print(appointment_date, appointment_time, customer_id, specialty_id, doctor_id, appointment_return)
 
     if appointment_date is None or appointment_date == '':
         return HttpResponseBadRequest(JsonResponse({
@@ -209,6 +208,12 @@ def insertAppointment(request):
             'message': 'Invalid request! The appointment doctor was not informed.'
         }))
 
+    if appointment_return is None or appointment_return == '':
+        return HttpResponseBadRequest(JsonResponse({
+            'status': 'error',
+            'message': 'Invalid request! The appointment return was not informed.'
+        }))
+
     customer = Customer.objects.get(id=customer_id)
     specialty = Specialty.objects.get(id=specialty_id)
     doctor = Employee.objects.get(id=doctor_id)
@@ -217,6 +222,7 @@ def insertAppointment(request):
     appointment = Appointment()
     appointment.appointment_date = appointment_date
     appointment.appointment_time = appointment_time
+    appointment.appointment_return = appointment_return
     appointment.customer = customer
     appointment.specialty = specialty
     appointment.doctor = doctor
