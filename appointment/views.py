@@ -244,6 +244,7 @@ def insertAppointment(request):
     if checkDuplicateAppointments(appointment_date, customer, specialty):
         return HttpResponseBadRequest(JsonResponse({
             'status': 'error',
+            'error-code-text': 'duplicate',
             'message': 'Invalid request! Duplicate records.'
         }))
 

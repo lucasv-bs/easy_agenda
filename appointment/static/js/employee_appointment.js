@@ -140,6 +140,10 @@ function getAppointmentsAvailable(specialty, appointmentDate) {
             btnRegister.textContent = 'Agendar';
             
             btnRegister.addEventListener('click', function() {
+                if (!validateFields(this)) {
+                    return;
+                }
+                
                 // get the filled values
                 const customer = document.querySelector("#id_customer").value;
                 const specialty = document.querySelector("#id_specialty").value;
@@ -157,13 +161,47 @@ function getAppointmentsAvailable(specialty, appointmentDate) {
 
             divDoctorAvailable.insertAdjacentElement('beforeend', pDoctorName);
             divDoctorAvailable.insertAdjacentElement('beforeend', pDoctorSpecialty);
-            divDoctorAvailable.insertAdjacentElement('beforeend', ulDoctorAvailableList);
+             divDoctorAvailable.insertAdjacentElement('beforeend', ulDoctorAvailableList);
             divDoctorAvailable.insertAdjacentElement('beforeend', btnRegister);
 
             divAvailabilityInformation.insertAdjacentElement('beforeend', divDoctorAvailable);
         }
         
     });
+}
+
+
+function validateFields(registerButtonClicked) {
+    const customer = document.querySelector("#id_customer").value;
+    const specialty = document.querySelector("#id_specialty").value;
+    const appointmentReturn = 
+        document.querySelector('input[name="appointment_return"]:checked');
+
+    const doctor = registerButtonClicked.parentElement.dataset.doctorId;
+    const appointmentTime = registerButtonClicked.previousSibling.querySelector('[data-time-selected="true"]');
+
+    if (customer == undefined || customer == null || customer == "") {
+        alert("Por favor, selecione um cliente");
+        return false;
+    }
+    if (specialty == undefined || specialty == null || specialty == "") {
+        alert("Por favor, selecione uma especialidade");
+        return false;
+    }
+    if (appointmentReturn == undefined || appointmentReturn == null || appointmentReturn == "") {
+        alert("Por favor, informe se esse agendamento é ou não um retorno");
+        return false;
+    }
+    if (doctor == undefined || doctor == null || doctor == "") {
+        alert("Por favor, informe selecione um médico");
+        return false;
+    }
+    if (appointmentTime == undefined || appointmentTime == null || appointmentTime == "") {
+        alert("Por favor, selecione um horário disponível");
+        return false;
+    }
+
+    return true;
 }
 
 
@@ -191,7 +229,12 @@ function insertAppointment(appointment_date, appointment_time, customer, special
         return response.json();
     })
     .then((data) => {
-        console.log(data);
+        if (data['status'] == 'success') {
+            alert('Agendamento registrado com sucesso!');
+        }
+        if (data['status'] == 'error' && data['error-code-text'] == 'duplicate') {
+            alert('Atenção: Você já fez um agendamento dessa especialidade para a data selecionada');
+        }
     });
 }
 
