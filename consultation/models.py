@@ -1,6 +1,7 @@
+# django imports
 from django.db import models
-import appointment
 
+# project imports
 from appointment.models import Appointment
 from employee.models import Employee
 from users.models import User
@@ -21,3 +22,7 @@ class Consultation(models.Model):
     updater = models.ForeignKey(User, on_delete=models.PROTECT)    
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+
+
+    def __str__(self):
+        return 'Consultation-' + self.status

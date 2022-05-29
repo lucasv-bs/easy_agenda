@@ -12,6 +12,7 @@ from django.shortcuts import render
 # project imports
 from .models import Appointment
 from clinic.models import Clinic
+from consultation.models import Consultation
 from customer.models import Customer
 from employee.models import Employee
 from specialty.models import Specialty
@@ -236,8 +237,13 @@ def insertAppointment(request):
     appointment.justification = ''
     appointment.creator = logged_user
     appointment.updater = logged_user
-
     appointment.save()
+
+    consultation = Consultation()
+    consultation.appointment = appointment
+    consultation.doctor = doctor
+    consultation.updater = logged_user
+    consultation.save()
 
     return JsonResponse({
         'status': 'success',

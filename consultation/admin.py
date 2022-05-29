@@ -7,10 +7,11 @@ from .models import Consultation
 @admin.register(Consultation)
 class ConsultationAdmin(admin.ModelAdmin):
     list_display = [
-        'created',
+        'status',
         'medical_chart',
         'appointment',
         'doctor',
-        'updater',        
+        'updater',
+        'created',
         'updated'
     ]

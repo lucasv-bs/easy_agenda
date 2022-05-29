@@ -1,5 +1,10 @@
+# python imports
+from time import strftime, time
+
+# django imports
 from django.db import models
 
+# project imports
 from users.models import User
 from customer.models import Customer
 from employee.models import Employee
@@ -34,3 +39,7 @@ class Appointment(models.Model):
 
     class Meta:
         ordering = ("appointment_date", "appointment_time", "specialty", "doctor", "customer",)
+
+    
+    def __str__(self):
+        return self.specialty.name + '-' + self.appointment_date.strftime("%d/%m/%Y") + '-' + self.appointment_time.strftime('%H:%M')
