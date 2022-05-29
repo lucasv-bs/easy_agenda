@@ -151,6 +151,7 @@
     background-color: var(--color-darkblue);
     border-radius: 5px;
     color: var(--color-full-white);
+    cursor: pointer;
     margin-top: 15px;
     padding: 5px 10px;
 }

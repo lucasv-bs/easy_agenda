@@ -22,6 +22,11 @@ function getCookie(name) {
 }
 
 
+function clearAvailabilityInformation() {
+    divAvailabilityInformation.textContent = '';
+}
+
+
 function getAppointmentsAvailable(specialty, appointmentDate) {
     
     // Check if one specialty was selected
@@ -55,7 +60,7 @@ function getAppointmentsAvailable(specialty, appointmentDate) {
         if (data['status'] == 'warning' || data['status'] == 'error') {
             return;
         }
-        divAvailabilityInformation.textContent = '';
+        clearAvailabilityInformation();
 
         const pSelectedDayResults = document.createElement('p');
         pSelectedDayResults.setAttribute('id', 'selected-day-results');
@@ -83,6 +88,7 @@ function getAppointmentsAvailable(specialty, appointmentDate) {
         const specialtyId = data['specialty_id'];
         const specialtyName = data['specialty_name'];
 
+        // generate the panel with the availability data
         for (const doctor of data['doctors']) {
             let doctorId = doctor['doctor_id'];
             let doctorName = doctor['doctor_name'];
@@ -90,6 +96,7 @@ function getAppointmentsAvailable(specialty, appointmentDate) {
             let doctorCrm = doctor['doctor_crm'];
             let doctorState = doctor['doctor_state'];
 
+            // generate the HTML elements of the panel
             const divDoctorAvailable = document.createElement('div');
             divDoctorAvailable.setAttribute('id', `doctor-id-${doctorId}`);
             divDoctorAvailable.setAttribute('class', 'doctor');
@@ -106,6 +113,7 @@ function getAppointmentsAvailable(specialty, appointmentDate) {
             const ulDoctorAvailableList = document.createElement('ul');
             ulDoctorAvailableList.setAttribute('class', 'doctor-time-list');
 
+            // generate the available time list
             for (const time of doctor['available_times']) {
                 const liAvailableTime = document.createElement('li');
                 liAvailableTime.setAttribute('class', 'doctor-time-available');
@@ -131,17 +139,19 @@ function getAppointmentsAvailable(specialty, appointmentDate) {
             btnRegister.textContent = 'Agendar';
             
             btnRegister.addEventListener('click', function() {
-                const customer = document.querySelector("#id_customer").value;
+                // get the filled values
+                const customer = -1;
                 const specialty = document.querySelector("#id_specialty").value;
                 const appointment_date = document.querySelector('#id_appointment_date').value 
                     ? document.querySelector('#id_appointment_date').value 
                     : formatDate(new Date());
+                const appointment_return = 
+                    document.querySelector('input[name="appointment_return"]:checked').value;
 
                 const doctor = this.parentElement.dataset.doctorId;
                 const appointment_time = this.previousSibling.querySelector('[data-time-selected="true"]').textContent;
-                console.log('Appointment time: ', appointment_time);
 
-                insertAppointment(appointment_date, appointment_time, customer, specialty, doctor);
+                insertAppointment(appointment_date, appointment_time, customer, specialty, doctor, appointment_return);
             });
 
             divDoctorAvailable.insertAdjacentElement('beforeend', pDoctorName);
@@ -156,9 +166,9 @@ function getAppointmentsAvailable(specialty, appointmentDate) {
 }
 
 
-function insertAppointment(appointment_date, appointment_time, customer, specialty, doctor) {
-    console.log(appointment_date, appointment_time, customer, specialty, doctor);
-    
+function insertAppointment(appointment_date, appointment_time, customer, specialty, doctor, 
+        appointment_return) {
+
     const url = '/appointment/employee_appointment/insert/'
     fetch(url, {
         method: 'POST',
@@ -170,9 +180,10 @@ function insertAppointment(appointment_date, appointment_time, customer, special
         body: JSON.stringify({
             'appointment_date': appointment_date,
             'appointment_time': appointment_time,
-            'customer_id': parseInt(customer),
+            'customer_id': customer,
             'specialty_id': parseInt(specialty),
-            'doctor_id': parseInt(doctor)
+            'doctor_id': parseInt(doctor),
+            'appointment_return': (appointment_return === 'true')
         })
     })
     .then((response) => {

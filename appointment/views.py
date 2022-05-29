@@ -213,8 +213,15 @@ def insertAppointment(request):
             'status': 'error',
             'message': 'Invalid request! The appointment return was not informed.'
         }))
+    
+    
+    if customer_id < 0:
+        # the logged-in user is the customer
+        customer = Customer.objects.get(user=request.user)
+    else:
+        # the employee selected a customer
+        customer = Customer.objects.get(id=customer_id)
 
-    customer = Customer.objects.get(id=customer_id)
     specialty = Specialty.objects.get(id=specialty_id)
     doctor = Employee.objects.get(id=doctor_id)
     logged_user = request.user
