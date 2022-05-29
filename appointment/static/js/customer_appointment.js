@@ -145,8 +145,7 @@ function getAppointmentsAvailable(specialty, appointmentDate) {
                 const appointment_date = document.querySelector('#id_appointment_date').value 
                     ? document.querySelector('#id_appointment_date').value 
                     : formatDate(new Date());
-                const appointment_return = 
-                    document.querySelector('input[name="appointment_return"]:checked').value;
+                const appointment_return = 'false';
 
                 const doctor = this.parentElement.dataset.doctorId;
                 const appointment_time = this.previousSibling.querySelector('[data-time-selected="true"]').textContent;
