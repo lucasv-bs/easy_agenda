@@ -19,6 +19,13 @@ def save(request, id):
     customer = ap.customer
     formCons = ConsultationCreateForm(request.POST, request.FILES, instance=consultation)
     if formCons.is_valid():
+        formCons.save(commit=False)
+        if consultation.status == 'pem':
+            ap.status = 'age'
+        elif consultation.status == 'eat':
+            ap.status = 'eat'
+        elif consultation.status == 'fin':
+            ap.status = 'fin'
         formCons.appointment = ap
         formCons.doctor = doctor
         formCons.creator = logged_user
