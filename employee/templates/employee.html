@@ -8,7 +8,7 @@
 
 {% block content %}
     
-{% if employee.gender == m %}
+{% if employee.gender == 'm' %}
 <h1 class="title">Olá, bem vindo <span class="employee-logged">{{request.user.username}}!</span></h1>
 {% else %}
 <h1 class="title">Olá, bem vinda <span class="employee-logged">{{request.user.username}}!</span></h1>

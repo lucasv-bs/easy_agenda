@@ -1,4 +1,5 @@
 const btnCancelList = document.querySelectorAll('.btn-cancel-appointment');
+const selectedAppointment = document.querySelectorAll('.line-appointment');
 
 function getCookie(name) {
     let cookieValue = null;
@@ -16,9 +17,8 @@ function getCookie(name) {
     return cookieValue;
 }
 
-
 function cancelAppointment(id){
-    let url = '/customer/cancel_appointment/'
+    let url = '/employee/cancel_appointment/'
 
     fetch(url, {
         method: 'POST',
@@ -35,7 +35,6 @@ function cancelAppointment(id){
         return response.json();
     })
     .then((data) => {
-        console.log("sjflaksd")
         let btn = document.getElementById(id)
         btn.disabled = true
         btn.innerHTML = "Cancelado"
@@ -43,6 +42,15 @@ function cancelAppointment(id){
     });
 }
 
+function teste(id){
+    
+}
+
+selectedAppointment.forEach(function(currentApp) {
+    currentApp.addEventListener('dblclick', function() {
+        window.location.assign("http://localhost:8000/consultation/"+this.dataset.appointmentId);   
+    });
+})
 
 btnCancelList.forEach(function(currentBtn) {
     currentBtn.addEventListener('click', function() {

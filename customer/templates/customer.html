@@ -31,7 +31,7 @@
             <p class="appointment-time">
                 Horário da consulta: <time>{{appointment.appointment_time}}</time>
             </p>
-            <button class="btn-cancel-appointment" data-appointment-id="{{appointment.id}}">Cancelar</button>
+            <button class="btn-cancel-appointment" id="{{appointment.id}}" data-appointment-id="{{appointment.id}}">Cancelar</button>
         </div>
         {% endfor %}
     </div>
