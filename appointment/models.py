@@ -16,6 +16,7 @@ class Appointment(models.Model):
         ('nac', 'Não compareceu'),
         ('age', 'Agendado'),
         ('agu', 'Aguardando'),
+        ('eat', "Em atendimento"),
         ('can', 'Cancelado'),
         ('ret', 'Retorno'),
         ('fin', 'Finalizado'),
