@@ -10,23 +10,27 @@
     <p>Data de nascimento do paciente: {{appointment.customer.birth_date}}</p>
     <p>Médico: {{appointment.doctor}}</p>
     <p>Especialidade: {{appointment.specialty}}</p>
-    <a href="~/{{consultation.medical_chart.url}}">Medical chart</a>
-    <form id="form" class="form" action="save/" method="POST" enctype="multipart/form-data">
+    {% if not consultation.medical_chart.url == null %}
+        <p>{{consultation.medical_chart.url}}</p>
+        <a href="{{consultation.medical_chart.url}}">Medical chart</a>
+    {% endif %}
+        <form id="form" class="form" action="save/" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="form-control">
         <label for="{{consultation_form.status.id_for_label}}">{{consultation_form.status.label}}</label>
         <select id="{{consultation_form.status.id_for_label}}" name="{{consultation_form.status.html_name}}" required>
             {% for value, description in consultation_form.fields.status.choices %}
-            <option value="{{value}}">{{description}}</option>
+            <option value="{{value}}" {% if value == consultation.status %} selected {% endif %} >{{description}}</option>
             {% endfor %}
         </select>
     </div>
-        
+
         <div class="form-control">
             <label for="{{consultation_form.medical_chart.label}}">{{consultation_form.medical_chart.label}}</label>
             <input type="file"
                 id="{{consultation_form.medical_chart.id_for_label}}" name="{{consultation_form.medical_chart.html_name}}" required>
         </div>
+
         <div class="form-control">
             <button type="submit" id="btn-register">Cadastrar</button>
         </div>

@@ -50,10 +50,8 @@ def attendantPage(request, employee, user_group):
 
 
 def doctorPage(request, employee, user_group):
-    #date.today()
     appointment_list = Appointment.objects.filter(doctor=employee, canceled=False, appointment_date=date.today())
     total_appointments = appointment_list.count()
-    print(total_appointments)
     page = request.GET.get('page', 1)
     paginator = Paginator(appointment_list, 5)
     try:

@@ -134,6 +134,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 # URL used always a static file is load
+
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'consultation/media')
+
+MEDIA_URL = 'media/'
+
+
 STATIC_URL = 'static/'
 # Static files directories
 STATICFILES_DIRS = [

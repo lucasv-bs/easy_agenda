@@ -1,0 +1,72 @@
+{% extends 'employee.html' %}
+{% load static %}
+
+{% block employee_content %}
+
+{% if total_appointments == 0 %}
+<p>Não há consultas agendadas para hoje</p>
+{% endif %}
+
+{% if total_appointments > 0 %}
+<p>Consultas agendadas para hoje: {{total_appointments}}</p>
+<table class="table">
+    <thead class="table-head">
+        <tr class="table-line">
+            <th class="table-column" hidden>id</th>
+            <th class="table-column">Data</th>
+            <th class="table-column">Hora</th>
+            <th class="table-column">Cliente</th>
+            <th class="table-column">Especialidade</th>
+            <th class="table-column">Médico</th>
+            <th class="table-column">Retorno</th>
+            <th class="table-column">Cancelar</th>
+        </tr>
+    </thead>
+    <tbody class="table-body">
+        {% for appointment in appointments %}
+        <tr class="line-appointment table-line" data-appointment-id="{{appointment.id}}">
+            <td class="table-column" hidden>{{appointment.id}}</td>
+            <td class="table-column">{{appointment.appointment_date}}</td>
+            <td class="table-column">{{appointment.appointment_time}}</td>
+            <td class="table-column">{{appointment.customer}}</td>
+            <td class="table-column">{{appointment.specialty}}</td>
+            <td class="table-column">{{appointment.doctor}}</td>
+            <td class="table-column">
+                <input type="checkbox" name="appointment_return" id="appointment_{{appointment.id}}"
+                    value="{{appointment.appointment_return}}" disabled>
+            </td>
+            <td class="table-column">
+                <button class="btn-cancel-appointment" id="{{appointment.id}}" data-appointment-id="{{appointment.id}}">Cancelar</button>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% if appointments.has_other_pages %}
+<ul class="pagination">
+    {% if appointments.has_previous %}
+    <li><a href="?page={{ appointments.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+    <li class="disabled"><a href="#">&laquo;</a></li>
+    {% endif %}
+    {% for i in appointments.paginator.page_range %}
+    {% if appointments.number == i %}
+    <li class="active"><a href="#">{{ i }}</a></li>
+    {% else %}
+    <li><a href="?page={{ i }}">{{ i }}</a></li>
+    {% endif %}
+    {% endfor %}
+    {% if appointments.has_next %}
+    <li><a href="?page={{ appointments.next_page_number }}">&raquo;</a></li>
+    {% else %}
+    <li class="disabled"><a href="#">&raquo;</a></li>
+    {% endif %}
+</ul>
+{% endif %}
+{% endif %}
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/doctor_home.js' %}"></script>
+{% endblock %}
