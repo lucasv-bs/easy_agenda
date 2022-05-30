@@ -1,25 +1,58 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static 'css/consultation.css' %}">
+{% endblock %}
 
 {% block content %}
-<h1>Página da consulta</h1>
-<div>
-    <p>Data e hora do agendamento: {{appointment.appointment_date}} - {{appointment.appointment_time}}</p>
-    <p>
-        Status da consulta: <select name="" id="">
-            <option value="">Pendente</option>
-            <option value="">Em andamento</option>
-            <option value="">Finalizado</option>
-        </select>
-    </p>
-    <p>Paciente: {{appointment.customer}}</p>
-    <p>Data de nascimento do paciente: {{appointment.customer.birth_date}}</p>
-    <p>Médico: {{appointment.doctor}}</p>
-    <p>Especialidade: {{appointment.specialty}}</p>
-    <p>
-        Carregar prontuário: <input type="file" name="" id="">
-    </p>
-    <p>
-        <button>Salvar</button>
-    </p>
+<h1 class="title">Consulta</h1>
+<div class="panel">
+    <div class="panel-left">
+        <div class="panel-customer-data">
+            <h2>Dados do paciente</h2>            
+            <p>Nome: {{appointment.customer.name}}</p>
+            <p>Data de nascimento: {{appointment.customer.birth_date}}</p>
+            <p>CPF: {{appointment.customer.cpf}}</p>
+            <p>Telefone: {{appointment.customer.tel1}}</p>
+        </div>
+        <div class="panel-consultation-data">
+            <h2>Dados da consulta</h2>
+            <p>Médico(a): {{appointment.doctor}}</p>
+            <p>Especialidade: {{appointment.specialty}}</p>
+            <p>Agendamento: {{appointment.appointment_date}} - {{appointment.appointment_time}}</p>
+            {% if not consultation.medical_chart.url == null %}
+            <p>
+                <a class="medical-chart-link" href="{{consultation.medical_chart.url}}" target="_blank">Visualizar prontuário</a>
+            </p>            
+            {% endif %}
+            <form id="form" class="form" action="save/" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-control">
+                    <label for="{{consultation_form.status.id_for_label}}">Status da consulta:</label>
+                    <select id="{{consultation_form.status.id_for_label}}" name="{{consultation_form.status.html_name}}" required>
+                        {% for value, description in consultation_form.fields.status.choices %}
+                        <option value="{{value}}" {% if value == consultation.status %} selected {% endif %}>{{description}}</option>
+                        {% endfor %}
+                    </select>
+                </div>    
+                <div class="form-control">
+                    <label for="{{consultation_form.medical_chart.label}}">Carregar prontuário:</label>
+                    <input type="file"
+                        id="{{consultation_form.medical_chart.id_for_label}}" name="{{consultation_form.medical_chart.html_name}}" required>
+                </div>
+    
+                <div class="form-control">
+                    <button type="submit" class="btn-save-consultation" id="btn-register">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="panel-right">
+        <figure>
+            <img src="{% static 'images/easy-agenda-logo.png' %}" alt="Easy Agenda logo">
+        </figure>
+    </div>
 </div>
 {% endblock %}

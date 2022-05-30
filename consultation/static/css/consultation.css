@@ -1,0 +1,67 @@
+.title {
+    color: var(--text-emphasis);
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.panel {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.panel-left {
+    background-color: var(--background-transparent-gray);
+    border-radius: 10px;
+    padding: 10px 20px;
+}
+
+.panel-consultation-data {
+    margin-top: 30px;
+}
+
+.panel-customer-data > h2, .panel-consultation-data > h2 {
+    margin-bottom: 15px;
+}
+
+.panel-customer-data > p, .panel-consultation-data > p, .panel-consultation-data > form {
+    margin-top: 15px;
+}
+
+.panel-consultation-data > p > a {
+    background-color: var(--logo-darkest-part);
+    border-radius: 5px;
+    color: var(--color-full-white);
+    padding: 5px 15px;
+    text-decoration: none;
+}
+
+.form-control{
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.form-control input{
+    display: inline-block;
+    border-radius: 10px;
+    font-size: 14px;
+    padding: 10px;
+}
+
+.form-control select {
+    display: inline-block;
+    border-radius: 10px;
+    font-size: 14px;
+    padding: 10px;
+}
+
+.btn-save-consultation {
+    background-color: var(--color-darkblue);
+    border-radius: 5px;
+    color: var(--color-full-white);
+    padding: 5px 15px;
+}
+
+.panel-right {
+    align-self: center;
+}
