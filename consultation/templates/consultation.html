@@ -21,7 +21,7 @@
             <p>Médico(a): {{appointment.doctor}}</p>
             <p>Especialidade: {{appointment.specialty}}</p>
             <p>Agendamento: {{appointment.appointment_date}} - {{appointment.appointment_time}}</p>
-            {% if not consultation.medical_chart.url == null %}
+            {% if consultation.medical_chart %}
             <p>
                 <a class="medical-chart-link" href="{{consultation.medical_chart.url}}" target="_blank">Visualizar prontuário</a>
             </p>            
