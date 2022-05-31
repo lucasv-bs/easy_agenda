@@ -24,7 +24,7 @@
     </thead>
     <tbody class="table-body">
         {% for appointment in appointments %}
-        <tr class="table-line">
+        <tr class="line-appointment table-line" data-appointment-id="{{appointment.id}}">
             <td class="table-column" hidden>{{appointment.id}}</td>
             <td class="table-column">{{appointment.appointment_date}}</td>
             <td class="table-column">{{appointment.appointment_time}}</td>
@@ -36,7 +36,7 @@
                     value="{{appointment.appointment_return}}" disabled>
             </td>
             <td class="table-column">
-                <button type="button">Cancelar</button>
+                <button type="button" id="{{appointment.id}}" class="btn-cancel-appointment" data-appointment-id="{{appointment.id}}" class="btn-cancel-appointment">Cancelar</button>
             </td>
         </tr>
         {% endfor %}
@@ -65,4 +65,8 @@
 {% endif %}
 {% endif %}
 
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/attendant_home.js' %}"></script>
 {% endblock %}
