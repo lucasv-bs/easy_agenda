@@ -18,6 +18,7 @@
 .table-column {
     border-bottom: 1px solid var(--table-border);
     padding: 10px 5px;
+    vertical-align: middle;
 }
 
 .table-head > .table-line > .table-column {
@@ -55,6 +56,26 @@
 
 .table-body > .table-line:nth-child(even) > .table-column {
     background-color: var(--table-body-bg-light);
+}
+
+.table-body > .table-line:hover > .table-column {
+    background-color: var(--table-body-line-hover);
+}
+
+.btn-cancel-appointment {
+    background-color: var(--color-red);
+    border-radius: 5px;
+    color: var(--color-full-white);
+    cursor: pointer;
+    display: block;
+    font-weight: 600;
+    max-width: min-content;
+    padding: 5px 10px;
+}
+
+.btn-cancel-appointment:disabled {
+    cursor: auto;
+    background-color: var(--logo-lightest-part);
 }
 
 /* PAGINATION */

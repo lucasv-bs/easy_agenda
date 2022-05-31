@@ -85,3 +85,8 @@
     max-width: min-content;
     padding: 5px 10px;
 }
+
+.btn-cancel-appointment:disabled {
+    cursor: auto;
+    background-color: var(--logo-lightest-part);
+}

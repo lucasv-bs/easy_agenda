@@ -41,18 +41,19 @@ q:before, q:after {
     --color-darkblue: #103f5f;
     --color-full-black: #000;
     --color-full-white: #fff;
-    --color-red: #8c0815;    
+    --color-red: #8c0815;
     --logo-darkest-part: #088c7f;
     --logo-lightest-part: #21bfb0;
     --pagination-bg-light: #C2FFD6;
     --pagination-bg-dark: #30b673;
     --shadow-semi-transparent: rgba(0, 0, 0, 0.5);
-    --table-body-bg-light: #ddd;
-    --table-body-bg-dark: #C2FFD6;
     --table-head-bg: #30b673;
+    --table-body-bg-light: #fafafa91;
+    --table-body-bg-dark: #C2FFD6;
+    --table-body-line-hover: rgba(150, 243, 150, 0.918);
     --table-border: #999;
     --text-emphasis: #493F3F;
-    --text-normal: #594F4F;    
+    --text-normal: #594F4F;
 }
 
 body {
