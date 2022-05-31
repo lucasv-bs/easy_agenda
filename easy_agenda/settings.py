@@ -86,12 +86,12 @@ WSGI_APPLICATION = 'easy_agenda.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': str(os.environ.get('DATABASE_ENGINE')),
-        'HOST': str(os.environ.get('DATABASE_HOST')),
-        'PORT': str(os.environ.get('DATABASE_PORT')),
-        'NAME': str(os.environ.get('DATABASE_NAME')),
-        'USER': str(os.environ.get('DATABASE_USER')),
-        'PASSWORD': str(os.environ.get('DATABASE_PASSWORD')),
+        'ENGINE': 'django.db.backends.mysql',
+        'HOST': 'localhost',
+        'PORT': '3306',
+        'NAME': 'easy_agenda',
+        'USER': 'alef',
+        'PASSWORD': 'Soulbound999#',
     }
 }
 
