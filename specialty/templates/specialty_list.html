@@ -19,13 +19,12 @@
 
 <div class="panel">
     <div class="specialty-list">
-        <div class="specialty-wrapper">
-            {% for specialty in specialty_list %}
+        {% for specialty in specialty_list %}
+        <div class="specialty-wrapper">            
             <h2 class="specialty-title">{{ specialty.name }}</h2>
             <p class="specialty-description">{{ specialty.description }}</p>
-            {% endfor %}
-            </p>
         </div>
+        {% endfor %}
     </div>
 
 </div>
