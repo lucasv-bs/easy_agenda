@@ -6,5 +6,6 @@ from .models import Specialty
 
 
 def specialtyList(request):
-    context = {}
+    specialty_list = Specialty.objects.filter(active=True)
+    context = {"specialty_list" : specialty_list}
     return render(request, 'specialty_list.html', context)

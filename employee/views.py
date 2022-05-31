@@ -71,8 +71,23 @@ def doctorPage(request, employee, user_group):
 
 
 def supervisorPage(request, employee, user_group):
+
+    appointment_list = Appointment.objects.filter(appointment_date=date.today(), canceled=False)
+    total_appointments = appointment_list.count()
+
+    page = request.GET.get('page', 1)
+    paginator = Paginator(appointment_list, 5)
+    try:
+        appointments = paginator.page(page)
+    except PageNotAnInteger:
+        appointments = paginator.page(1)
+    except EmptyPage:
+        appointments = paginator.page(paginator.num_pages)        
+
     context = {
+        'appointments': appointments,
+        'total_appointments': total_appointments,
         'employee': employee,
         'user_group': user_group
     }
-    return render(request, 'employee.html', context)
+    return render(request, 'supervisor_home.html', context)
