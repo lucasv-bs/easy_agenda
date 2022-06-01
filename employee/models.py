@@ -58,6 +58,8 @@ class Employee(models.Model):
     neighborhood = models.CharField(max_length=150)
     tel1 = models.CharField(max_length=11)
     tel2 = models.CharField(max_length=11, blank=True, null=True)
+    start_time = models.TimeField(blank=True, null=True)
+    finish_time = models.TimeField(blank=True, null=True)
     lunch_start_time = models.TimeField(blank=True, null=True)
     lunch_finish_time = models.TimeField(blank=True, null=True)
     active = models.BooleanField(default=True)
@@ -67,6 +69,10 @@ class Employee(models.Model):
     user = models.OneToOneField(User, on_delete=models.PROTECT, related_name='employee')
     creator = models.ForeignKey(User, on_delete=models.PROTECT, related_name='employee_creator_set')
     updater = models.ForeignKey(User, on_delete=models.PROTECT, related_name='employee_updater_set')
+
+    
+    class Meta:
+        ordering = ("start_time", "name",)
 
 
     def __str__(self):

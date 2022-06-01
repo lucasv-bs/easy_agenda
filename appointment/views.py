@@ -129,9 +129,13 @@ def getDoctorAvailability(doctor, appointment_date, clinic_start_time, clinic_en
         "selected_date": appointment_date,
         "available_times": []
     }
-    # get the doctor's lunch time
+    # get the doctor's work time
+    start_time = doctor.start_time
+    finish_time = doctor.finish_time
     lunch_start_time = doctor.lunch_start_time
     lunch_finish_time = doctor.lunch_finish_time
+    start_time = start_time.strftime('%H:%M')
+    finish_time = finish_time.strftime('%H:%M')
     lunch_start_time = lunch_start_time.strftime('%H:%M')
     lunch_finish_time = lunch_finish_time.strftime('%H:%M')
 
@@ -144,28 +148,34 @@ def getDoctorAvailability(doctor, appointment_date, clinic_start_time, clinic_en
     )
 
     # get a list of times
-    time_list_before_luch = pandas.date_range(
-        clinic_start_time, 
+    time_list_before_lunch = pandas.date_range(
+        start_time, 
         lunch_start_time, 
         freq=consultation_duration
     ).time
     time_list_after_lunch = pandas.date_range(
         lunch_finish_time, 
-        clinic_end_time, 
+        finish_time, 
         freq=consultation_duration
     ).time
     # concatenate the lists using 'list comprehension'
-    time_list = [y for x in [time_list_before_luch, time_list_after_lunch] for y in x]
-
+    time_list = [y for x in [time_list_before_lunch, time_list_after_lunch] for y in x]    
+    
+    current_date = datetime.now().strftime('%Y-%m-%d')
+    current_date = datetime.strptime(current_date, '%Y-%m-%d')
     # Checks if the doctor has appointments for the selected date
     if doctor_appointments.count() > 0:
         # removes from the list of available times, all times that the doctor has appointments
-        doctor_data["available_times"] = [i.strftime("%H:%M") for i in time_list if not i in doctor_appointments.values_list("appointment_time", flat=True)]
-        
+        if datetime.strptime(appointment_date, '%Y-%m-%d') > current_date:
+            doctor_data["available_times"] = [i.strftime("%H:%M") for i in time_list if not i in doctor_appointments.values_list("appointment_time", flat=True)]
+        else:
+            doctor_data["available_times"] = [i.strftime("%H:%M") for i in time_list if not i in doctor_appointments.values_list("appointment_time", flat=True) and i > datetime.now().time()]
     else:
         # keeps the list of available times with all times of the day
-        doctor_data["available_times"] = [i.strftime("%H:%M") for i in time_list]
-        
+        if datetime.strptime(appointment_date, '%Y-%m-%d') > current_date:
+            doctor_data["available_times"] = [i.strftime("%H:%M") for i in time_list]
+        else:
+            doctor_data["available_times"] = [i.strftime("%H:%M") for i in time_list if i > datetime.now().time()]
 
     return doctor_data
 
