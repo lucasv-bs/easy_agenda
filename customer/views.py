@@ -4,6 +4,7 @@ from datetime import date, datetime
 # django imports
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import Group
 from django.shortcuts import redirect, render
 
 # project imports
@@ -27,6 +28,10 @@ def registerPage(request):
         if form_customer.is_valid() and form_user.is_valid():
             user = form_user.save()
             username = form_user.cleaned_data.get('username')
+
+            # set group to the customer
+            customerGroup = Group.objects.get(name='customer')
+            user.groups.add(customerGroup)
 
             logged_user = None
             if request.user.is_staff:
