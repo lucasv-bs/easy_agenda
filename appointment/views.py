@@ -183,6 +183,17 @@ def checkDuplicateAppointments(appointment_date, customer, specialty):
     return appointment.count() > 0
 
 
+def checkPastDateTime(appointment_date, time):
+    current_date = datetime.now().strftime('%Y-%m-%d')
+    current_date = datetime.strptime(current_date, '%Y-%m-%d')
+    current_time = datetime.now()
+    
+    if datetime.strptime(appointment_date, '%Y-%m-%d') < current_date:
+        return True
+
+    return False
+
+
 #
 # register an appointment
 #
@@ -252,6 +263,14 @@ def insertAppointment(request):
             'status': 'error',
             'error-code-text': 'duplicate',
             'message': 'Invalid request! Duplicate records.'
+        }))
+
+    if checkPastDateTime(appointment_date, appointment_time):
+        print('ERROR - DATA INVALIDA')
+        return HttpResponseBadRequest(JsonResponse({
+            'status': 'error',
+            'error-code-text': 'datetime',
+            'message': 'Invalid request! The date and time entered must be greater than the current date and time.'
         }))
 
     appointment = Appointment()

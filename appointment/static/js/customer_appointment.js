@@ -219,8 +219,17 @@ function insertAppointment(appointment_date, appointment_time, customer, special
         if (data['status'] == 'success') {
             alert('Agendamento registrado com sucesso!');
         }
-        if (data['status'] == 'error' && data['error-code-text'] == 'duplicate') {
-            alert('Atenção: Você já fez um agendamento dessa especialidade para a data selecionada');
+        if (data['status'] == 'error') {
+            errorActions = {
+                'duplicate': function() {
+                    alert('ATENÇÃO: Você já fez um agendamento dessa especialidade para a data selecionada');
+                },
+                'datetime': function() {
+                    alert('ATENÇÃO: A data e a hora informada devem ser maiores que a data e hora atual');
+                }
+            };
+            
+            errorActions[data['error-code-text']]();
         }
     });
 }
