@@ -23,7 +23,9 @@ from website.decorators import allowed_users
 @login_required(login_url='website:login')
 @allowed_users(allowed_roles=['customer'])
 def customerAppointmentPage(request):
-    specialty_list = Specialty.objects.all()
+    specialty_list = Specialty.objects.filter(
+        active=True
+    )
 
     context = {
         'specialty_list': specialty_list
@@ -34,8 +36,12 @@ def customerAppointmentPage(request):
 @login_required(login_url='website:login')
 @allowed_users(allowed_roles=['supervisor', 'attendant', 'doctor'])
 def employeeAppointmentPage(request):
-    customer_list = Customer.objects.all()
-    specialty_list = Specialty.objects.all()
+    customer_list = Customer.objects.filter(
+        active=True
+    )
+    specialty_list = Specialty.objects.filter(
+        active=True
+    )
 
     context = {
         'customer_list': customer_list,
