@@ -1,0 +1,43 @@
+.title {
+    color: var(--text-emphasis);
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 10px;
+    text-align: center;
+    width: 100%;
+}
+
+.panel {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin: auto;
+    padding: 10px 20px;
+}
+
+.panel-left {
+    align-self: center;    
+}
+
+.panel-right {
+    background-color: var(--background-transparent-gray);
+    border-radius: 10px;
+    padding: 10px 20px;    
+    width: 50%;
+}
+
+.version > h2,
+.developer-team > h2 {
+    margin-bottom: 10px;
+}
+
+.information > p, 
+.developer-team > p {
+    line-height: 1.5rem;
+}
+
+.information, 
+.developer-team, 
+.contact {
+    margin-top: 20px;
+}

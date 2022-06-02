@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static 'css/about.css' %}">
+{% endblock %}
+
+{% block content %}
+<h1 class="title">Sobre</h1>
+<div class="panel">
+    <div class="panel-left">
+        <figure>
+            <img src="{% static 'images/easy-agenda-logo.png' %}" alt="Easy Agenda logo">
+        </figure>
+    </div>
+    <div class="panel-right">
+        <div class="version">
+            <h2>Easy Agenda</h2>
+            <p>Versão: 1.0.0 <span><a href="#">(Informações da versão)</a></span></p>
+        </div>
+        <div class="information">
+            <p>
+                O Easy Agenda é uma aplicação desenvolvida com o objetivo de facilitar o processo 
+                de agendamento de uma consulta médica, tornando essa atividade prática, simples
+                e acessível a qualquer público.
+            </p>            
+        </div>
+        <div class="developer-team">
+            <h2>Desenvolvedores</h2>            
+                <p>Alef Lopes Barbosa</p>
+                <p>Lucas Vinicius Batista dos Santos</p>
+                <p>Vinicius Vieira Ferreira</p>
+                <p>Vitor Teles de Almeida Santos</p>
+        </div>
+        <div class="contact">
+            <p>Entre em contato através de: contato@easyagenda.com</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

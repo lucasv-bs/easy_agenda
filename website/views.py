@@ -36,3 +36,7 @@ def logoutUser(request):
 
 def information(request):
     return render(request, 'information.html')
+
+
+def about(request):
+    return render(request, 'about.html')

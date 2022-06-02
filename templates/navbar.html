@@ -21,7 +21,7 @@
         {% endif %}
         <a href="{% url 'specialty:specialty_list' %}">Especialidades</a>
         <a href="{% url 'website:information' %}">Informações</a>
-        <a href="#">Sobre</a>
+        <a href="{% url 'website:about' %}">Sobre</a>
     </div>
 
     <a class="btn-logout" href="{% url 'website:logout' %}">Logout</a>
