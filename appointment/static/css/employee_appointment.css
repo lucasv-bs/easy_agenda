@@ -94,6 +94,7 @@
 /* ********** RIGHT PANEL START ********** */
 .right-panel {
     flex: 0 0 50%;
+    height: 319px;
     max-width: 50%;
     padding: 10px;
     overflow-y: scroll;
