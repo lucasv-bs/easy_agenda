@@ -111,6 +111,8 @@ def getAppointmentsAvailable(request):
                 consultation_duration, days_number_to_search
             )
         )
+        if len(list(appointments_available_json['doctors'])[-1]['available_times']) == 0:
+            appointments_available_json['doctors'].pop()
 
     return JsonResponse(appointments_available_json)
 
@@ -187,7 +189,8 @@ def checkDuplicateAppointments(appointment_date, customer, specialty):
     appointment = Appointment.objects.filter(
         appointment_date=appointment_date,
         customer=customer,
-        specialty=specialty
+        specialty=specialty,
+        canceled=False
     )
 
     return appointment.count() > 0
