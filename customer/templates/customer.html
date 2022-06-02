@@ -23,7 +23,10 @@
     <div class="appointment-list">
         {% for appointment in appointment_list %}
         <div class="appointment-wrapper">
-            <p class="appointment-doctor">{{ appointment.doctor }}</p>
+            <p class="appointment-doctor">
+                {% if appointment.doctor.gender == 'm' %} Dr. {% else %} Dra. {% endif %}
+                {{ appointment.doctor }}
+            </p>
             <p class="appointment-specialty">{{ appointment.specialty }} - CRM: {{ appointment.doctor.crm }}</p>
             <p class="appointment-date">
                 Data da consulta: <time datetime="{{appointment.appointment_date}}">{{appointment.appointment_date}}</time>

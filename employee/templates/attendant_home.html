@@ -30,7 +30,10 @@
             <td class="table-column">{{appointment.appointment_time}}</td>
             <td class="table-column">{{appointment.customer}}</td>
             <td class="table-column">{{appointment.specialty}}</td>
-            <td class="table-column">{{appointment.doctor}}</td>
+            <td class="table-column">
+                {% if appointment.doctor.gender == 'm' %} Dr. {% else %} Dra. {% endif %}
+                {{appointment.doctor}}
+            </td>
             <td class="table-column">
                 <input type="checkbox" name="appointment_return" id="appointment_{{appointment.id}}"
                     value="{{appointment.appointment_return}}" disabled>
