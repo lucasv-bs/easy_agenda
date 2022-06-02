@@ -34,5 +34,9 @@
 }
 
 .information-description > li {
-    line-height: 1.5rem;
+    line-height: 1.5rem;    
+}
+
+.information-description > li + li {
+    margin-top: 10px;
 }
