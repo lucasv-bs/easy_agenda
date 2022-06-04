@@ -20,7 +20,6 @@
 }
 
 .no-appointments-message {
-    display: none;
     font-size: 2rem;
     margin-top: 6rem; /* (font-size * 3) */
 }
@@ -29,7 +28,6 @@
     background-color: var(--color-darkblue);
     border-radius: 5px;
     color: var(--color-full-white);
-    display: none;
     margin-top: 3rem;
     padding: 10px 15px;
 }

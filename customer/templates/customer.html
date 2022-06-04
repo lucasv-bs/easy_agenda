@@ -16,7 +16,7 @@
 <div class="panel">
     {% if total_appointments == 0 %}
     <p class="no-appointments-message">Você ainda não possui agendamentos</p>
-    <button class="btn-register-appointment">Agendar agora</button>
+    <a href="{% url 'appointment:customer_appointment' %}" class="btn-register-appointment">Agendar agora</a>
     
     {% else %}
     <p class="appointment-message">Acompanhe seus agendamentos abaixo:</p>
